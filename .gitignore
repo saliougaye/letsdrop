@@ -47,3 +47,8 @@ docs/
 /app/android/app/debug
 /app/android/app/profile
 /app/android/app/release
+
+
+.env
+
+backend/node_modules
