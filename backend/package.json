@@ -1,0 +1,14 @@
+{
+  "name": "letsdrop-be",
+  "version": "1.0.0",
+  "description": "Take Track of Drops",
+  "main": "index.js",
+  "scripts": {
+    "start": "node build/index.js",
+    "dev": "npx ts-node src/index.ts",
+    "build": ""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
