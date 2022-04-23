@@ -14,10 +14,43 @@ const schema = gql`
         link: String
     }
 
+    type Drop {
+        _id: ID!
+        album: String!
+        dropDate: String!
+        country: Country!
+        artists: [Artist!]!
+    }
+
+    input CountryInput {
+        name: String
+        code: String
+        flag: String
+    }
+
+    input ArtistInput {
+        id: String
+        name: String
+        image: String
+        link: String
+    }
+
+    input DropInput {
+        album: String
+        dropDate: String
+        country: CountryInput
+        artists: [ArtistInput]
+    }
+
     type Query {
-        """ Method to get countries """
-        countries: [Country]
-        artists(name: String!, token: String!): [Artist]
+        countries: [Country!]!
+        artists(name: String!, token: String!): [Artist]!
+        drops: [Drop!]!
+    }
+
+    type Mutation {
+        createDrop(drop: DropInput!): Drop
+        deleteDrop(id: ID!): Drop!
     }
 
 `;

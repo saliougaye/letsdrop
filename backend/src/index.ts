@@ -1,31 +1,40 @@
-import dotenv from 'dotenv';
-import fastify, { FastifyInstance } from "fastify";
-import { Server, IncomingMessage, ServerResponse } from 'http';
-import mercurius from 'mercurius';
+import mongoose from 'mongoose';
+import app from './app';
+import config from './utils/config';
 
+mongoose.connect(config.databaseUrl, {}).then(() => {
+    console.log("Connected to MongoDB");
 
-import { schema, resolvers } from './graphql/index';
+    app.listen(3000, '0.0.0.0', (err, address) => {
+        if (err) {
+            console.log(err);
+            process.exit(1);
+        }
 
+        console.log(`Server listening at ${address}`);
 
-dotenv.config();
+    });
 
-const app : FastifyInstance<Server, IncomingMessage, ServerResponse> = fastify({
-    logger: false
 });
 
-
-app.register(mercurius, {
-    schema: schema,
-    resolvers: resolvers,
-    graphiql: 'graphiql',
-});
-
-app.listen(3000, '0.0.0.0', (err, address) => {
-    if(err) {
-        console.log(err);
+const exitHandler = () => {
+    app.close(() => {
+        console.log('Server closed');
         process.exit(1);
-    }
+    });
+};
 
-    console.log(`Server listening at ${address}`);
-    
-})
+const unexpectedErrorHandler = (error: any) => {
+    console.error(error);
+    exitHandler();
+};
+
+process.on('uncaughtException', unexpectedErrorHandler);
+process.on('unhandledRejection', unexpectedErrorHandler);
+
+process.on('SIGTERM', () => {
+    console.log('SIGTERM received');
+    app.close()
+});
+
+
