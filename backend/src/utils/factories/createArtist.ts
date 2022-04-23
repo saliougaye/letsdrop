@@ -6,6 +6,6 @@ export const createArtist = (artist: IArtistItemsResponse) : Artist => {
         id: artist.id,
         name: artist.name,
         link: artist.external_urls.spotify,
-        image: artist.images[0].url   
+        image: artist.images.length !== 0 ? artist.images[0].url : undefined   
     }
 }

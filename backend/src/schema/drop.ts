@@ -42,7 +42,7 @@ const artistSchema = new Schema<Artist>({
     },
     image: {
         type: MongoString,
-        required: true,
+        required: false,
     },
     link: {
         type: MongoString,

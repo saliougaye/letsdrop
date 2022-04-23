@@ -23,12 +23,15 @@ const resolvers : IResolvers = {
     },
     Mutation: {
         createDrop: (_, args, ctx, info) : Promise<Drop> => {
+
+            const { drop } = args
+
             return dropsService.insertDrop({
                 drop: {
-                    album: args.album,
-                    dropDate: args.dropDate,
-                    country: args.country,
-                    artists: args.artists
+                    album: drop.album,
+                    dropDate: drop.dropDate,
+                    country: drop.country,
+                    artists: drop.artists
                 }
             });
         },

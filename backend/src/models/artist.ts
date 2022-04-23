@@ -1,7 +1,7 @@
 interface Artist {
     id: string,
     name: string,
-    image: string,
+    image?: string,
     link: string   
 }
 
