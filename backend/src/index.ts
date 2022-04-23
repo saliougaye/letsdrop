@@ -1,24 +1,21 @@
 import dotenv from 'dotenv';
 import fastify, { FastifyInstance } from "fastify";
+import { Server, IncomingMessage, ServerResponse } from 'http';
 import mercurius from 'mercurius';
-import {makeExecutableSchema} from '@graphql-tools/schema';
-import schemas from './schemas/index';
-import resolvers from './resolvers';
-import { mergeResolvers, mergeTypeDefs } from '@graphql-tools/merge';
-import { Server, IncomingMessage, ServerResponse } from 'http'
+
+
+import { schema, resolvers } from './graphql/index';
+
+
 dotenv.config();
 
 const app : FastifyInstance<Server, IncomingMessage, ServerResponse> = fastify({
     logger: true
 });
 
-const schema = makeExecutableSchema<any>({
-    typeDefs: mergeTypeDefs(schemas),
-    resolvers: mergeResolvers(resolvers),
-});
-
 app.register(mercurius, {
     schema: schema,
+    resolvers: resolvers,
     graphiql: 'graphiql',
 });
 
