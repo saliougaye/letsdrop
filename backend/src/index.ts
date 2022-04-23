@@ -10,8 +10,9 @@ import { schema, resolvers } from './graphql/index';
 dotenv.config();
 
 const app : FastifyInstance<Server, IncomingMessage, ServerResponse> = fastify({
-    logger: true
+    logger: false
 });
+
 
 app.register(mercurius, {
     schema: schema,

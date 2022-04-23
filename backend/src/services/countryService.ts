@@ -9,7 +9,7 @@ const countryService = () => {
 
     const countries = async (props: ICountriesProps) : Promise<Country[]> => {
 
-        const { data } = await axios.get<ICountryResponse[]>(`${url}/name/${props.name}`);
+        const { data } = await axios.get<ICountryResponse[]>(`${url}/all`);  // TODO cache
 
         const countries = data.map(el => createCountry(el));
 

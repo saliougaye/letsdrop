@@ -1,5 +1,5 @@
 interface ICountriesProps {
-    name: string
+    // name: string
 }
 
 export default ICountriesProps;
