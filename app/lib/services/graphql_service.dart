@@ -24,9 +24,9 @@ class GraphQlService {
   }
 
   Future<QueryResult> mutation(
-      String query, Map<String, dynamic> variables) async {
+      String query, { Map<String, dynamic>? variables }) async {
     MutationOptions options =
-        MutationOptions(document: gql(query), variables: variables);
+        MutationOptions(document: gql(query), variables: variables ?? {});
 
     final result = await _client.mutate(options);
 

@@ -22,18 +22,17 @@ class Drop {
     
 
     factory Drop.fromJson(Map<String, dynamic> json) => Drop(
-        id: json["id"],
+        id: json["_id"],
         album: json["album"],
         dropDate: json["dropDate"],
-        country: Country.fromJson(json["state"]),
+        country: Country.fromJson(json["country"]),
         artists: List<Artist>.from(json["artists"].map((x) => Artist.fromJson(x))),
     );
 
     Map<String, dynamic> toJson() => {
-        "id": id,
         "album": album,
         "dropDate": dropDate,
-        "state": country.toJson(),
+        "country": country.toJson(),
         "artists": List<dynamic>.from(artists.map((x) => x.toJson())),
     };
 }

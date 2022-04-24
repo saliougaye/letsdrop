@@ -9,11 +9,11 @@ abstract class IApiService {
 
   Future<List<Country>> getCountries();
 
-  Future<List<Artist>> getArtists(String name);
+  Future<List<Artist>> getArtists(String name, String token);
 
   Future<Drop> createDrop(Drop drop);
 
-  Future<Drop> deleteDrop(Drop drop);
+  Future<Drop> deleteDrop(String id);
 
 }
 
@@ -23,27 +23,147 @@ class ApiService extends IApiService {
   ApiService();
 
   @override
-  Future<Drop> createDrop(Drop drop) {
-    // TODO: implement createDrop
-    throw UnimplementedError();
+  Future<Drop> createDrop(Drop drop) async {
+    
+    const String query = """
+      mutation {
+        createDrop(drop: \$drop) {
+          _id
+          album
+          dropDate
+          country {
+            name
+            code
+            flag
+          }
+          artists {
+            name
+            link
+          }
+        }
+      }
+    """;
+
+    final result = await _graphQlService.mutation(query, variables: {
+      'drop': drop.toJson()
+    });
+
+    if(result.hasException) {
+      throw Exception(result.exception);
+    }
+
+    if(result.data == null) {
+      throw Exception("Drop not found");
+    }
+
+    final Map<String, dynamic> rawDrop = result.data!['deleteDrop'];
+    final Drop dropCreated = Drop.fromJson(rawDrop);
+
+    return dropCreated;
   }
 
   @override
-  Future<Drop> deleteDrop(Drop drop) {
-    // TODO: implement deleteDrop
-    throw UnimplementedError();
+  Future<Drop> deleteDrop(String id) async {
+    const String query = """
+      mutation {
+        deleteDrop(id: \$id) {
+          _id
+          album
+          dropDate
+          country {
+            name
+            code
+            flag
+          }
+          artists {
+            name
+            link
+          }
+        }
+      }
+    """;
+
+    final result = await _graphQlService.mutation(query, variables: {
+      'id': id,
+    });
+
+    if(result.hasException) {
+      throw Exception(result.exception);
+    }
+
+    if(result.data == null) {
+      throw Exception("Drop not found");
+    }
+
+    final Map<String, dynamic> rawDrop = result.data!['deleteDrop'];
+    final Drop drop = Drop.fromJson(rawDrop);
+
+    return drop;
   }
 
   @override
-  Future<List<Artist>> getArtists(String name) {
-    // TODO: implement getArtists
-    throw UnimplementedError();
+  Future<List<Artist>> getArtists(String name, String token) async {
+    
+    const String query = """
+      query {
+        artists(
+          token: \$token
+          name: \$name
+        ) {
+          id
+          name
+          image
+          link
+        }
+      }
+    """;
+
+    final result = await _graphQlService.query(query, variables: {
+      'token': token,
+      'name': name
+    });
+
+    if(result.hasException) {
+      throw Exception(result.exception);
+    }
+
+    if(result.data == null) {
+      return [];
+    }
+
+    final List<Map<String, dynamic>> rawArtists = result.data!['artists'];
+    final List<Artist> artists = rawArtists.map((e) => Artist.fromJson(e)).toList();
+
+    return artists;
   }
 
   @override
-  Future<List<Country>> getCountries() {
-    // TODO: implement getCountries
-    throw UnimplementedError();
+  Future<List<Country>> getCountries() async {
+    
+    const String query = """
+      query {
+        countries {
+          name
+          code
+          flag
+        }
+      }
+    """;
+
+    final result = await _graphQlService.query(query);
+
+    if(result.hasException) {
+      throw Exception(result.exception);
+    }
+
+    if(result.data == null) {
+      return [];
+    }
+
+    final List<Map<String, dynamic>> rawCountries = result.data!['countries'];
+    final List<Country> countries = rawCountries.map((e) => Country.fromJson(e)).toList();
+
+    return countries;
   }
 
   @override
