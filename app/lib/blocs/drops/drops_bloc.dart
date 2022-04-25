@@ -83,7 +83,9 @@ class DropsBloc extends Bloc<DropsEvent, DropsState> {
       
       } catch (e) {
         emit(
-          DropsCreationFailed()
+          DeleteDropFailed(
+            drops: state.drops
+          )
         );
       }
     }

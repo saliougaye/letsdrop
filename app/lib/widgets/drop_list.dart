@@ -19,18 +19,16 @@ class DropList extends StatelessWidget {
           );
         }
 
+        if(state is DeleteDropFailed) {
+          // const snackBar = SnackBar(content: Text("Can't Delete Drop. Retry Later"));
+
+          // ScaffoldMessenger.of(context).showSnackBar(snackBar);
+          return _dropsList(state.drops);
+        }
+
         if (state is DropsLoaded) {
 
-          return GroupedListView<Drop, DateTime>(
-            elements: state.drops, 
-            groupBy: (element) => element.dropDate,
-            itemBuilder: (context, element) => DropItem(drop: element),
-            groupSeparatorBuilder: (value) => DateDivider(date: value),
-            itemComparator: (element1, element2) => element1.album.compareTo(element2.album),
-            useStickyGroupSeparators: false,
-            floatingHeader: false,
-            order: GroupedListOrder.ASC,
-          );
+          return _dropsList(state.drops);
         }
 
         return const Center(
@@ -38,6 +36,25 @@ class DropList extends StatelessWidget {
         );
       },
     );
+  }
+
+  GroupedListView<Drop, DateTime> _dropsList(List<Drop> drops) {
+    return GroupedListView<Drop, DateTime>(
+          elements: drops, 
+          groupBy: (element) => element.dropDate,
+          itemBuilder: (context, element) => DropItem(
+            drop: element,
+            onDismiss: (drop) {
+              context.read<DropsBloc>().add(DeleteDrop(drop: drop));
+            },
+          ),
+          groupSeparatorBuilder: (value) => DateDivider(date: value),
+          itemComparator: (element1, element2) => element1.album.compareTo(element2.album),
+          useStickyGroupSeparators: false,
+          floatingHeader: false,
+          order: GroupedListOrder.ASC,
+          shrinkWrap: true,
+        );
   }
 
   

@@ -4,7 +4,6 @@ import 'package:letsdrop/models/drop.dart';
 import 'package:letsdrop/services/graphql_service.dart';
 
 abstract class IApiService {
-
   Future<List<Drop>> getDrops();
 
   Future<List<Country>> getCountries();
@@ -14,17 +13,16 @@ abstract class IApiService {
   Future<Drop> createDrop(Drop drop);
 
   Future<Drop> deleteDrop(String id);
-
 }
 
 class ApiService extends IApiService {
-  final GraphQlService _graphQlService = GraphQlService("http://10.0.2.2:3000/graphql");
+  final GraphQlService _graphQlService =
+      GraphQlService("http://10.0.2.2:3000/graphql");
 
   ApiService();
 
   @override
   Future<Drop> createDrop(Drop drop) async {
-    
     const String query = """
       mutation {
         createDrop(drop: \$drop) {
@@ -32,27 +30,28 @@ class ApiService extends IApiService {
           album
           dropDate
           country {
-            name
             code
+            name
             flag
           }
           artists {
+            id
             name
+            image
             link
           }
         }
       }
     """;
 
-    final result = await _graphQlService.mutation(query, variables: {
-      'drop': drop.toJson()
-    });
+    final result = await _graphQlService
+        .mutation(query, variables: {'drop': drop.toJson()});
 
-    if(result.hasException) {
+    if (result.hasException) {
       throw Exception(result.exception);
     }
 
-    if(result.data == null) {
+    if (result.data == null) {
       throw Exception("Drop not found");
     }
 
@@ -65,18 +64,20 @@ class ApiService extends IApiService {
   @override
   Future<Drop> deleteDrop(String id) async {
     const String query = """
-      mutation {
+      mutation DeleteDrop(\$id: ID!){
         deleteDrop(id: \$id) {
           id
           album
           dropDate
           country {
-            name
             code
+            name
             flag
           }
           artists {
+            id
             name
+            image
             link
           }
         }
@@ -87,23 +88,22 @@ class ApiService extends IApiService {
       'id': id,
     });
 
-    if(result.hasException) {
+    if (result.hasException) {
       throw Exception(result.exception);
     }
 
-    if(result.data == null) {
+    if (result.data == null) {
       throw Exception("Drop not found");
     }
 
-    final Map<String, dynamic> rawDrop = result.data!['deleteDrop'];
-    final Drop drop = Drop.fromJson(rawDrop);
+    final Object? rawDrop = result.data!['deleteDrop'];
+    final Drop drop = Drop.fromJson(rawDrop as Map<String, dynamic>);
 
     return drop;
   }
 
   @override
   Future<List<Artist>> getArtists(String name, String token) async {
-    
     const String query = """
       query {
         artists(
@@ -118,28 +118,26 @@ class ApiService extends IApiService {
       }
     """;
 
-    final result = await _graphQlService.query(query, variables: {
-      'token': token,
-      'name': name
-    });
+    final result = await _graphQlService
+        .query(query, variables: {'token': token, 'name': name});
 
-    if(result.hasException) {
+    if (result.hasException) {
       throw Exception(result.exception);
     }
 
-    if(result.data == null) {
+    if (result.data == null) {
       return [];
     }
 
     final List<Map<String, dynamic>> rawArtists = result.data!['artists'];
-    final List<Artist> artists = rawArtists.map((e) => Artist.fromJson(e)).toList();
+    final List<Artist> artists =
+        rawArtists.map((e) => Artist.fromJson(e)).toList();
 
     return artists;
   }
 
   @override
   Future<List<Country>> getCountries() async {
-    
     const String query = """
       query {
         countries {
@@ -152,23 +150,23 @@ class ApiService extends IApiService {
 
     final result = await _graphQlService.query(query);
 
-    if(result.hasException) {
+    if (result.hasException) {
       throw Exception(result.exception);
     }
 
-    if(result.data == null) {
+    if (result.data == null) {
       return [];
     }
 
     final List<Map<String, dynamic>> rawCountries = result.data!['countries'];
-    final List<Country> countries = rawCountries.map((e) => Country.fromJson(e)).toList();
+    final List<Country> countries =
+        rawCountries.map((e) => Country.fromJson(e)).toList();
 
     return countries;
   }
 
   @override
   Future<List<Drop>> getDrops() async {
-
     const String query = """
       query {
         drops {
@@ -192,18 +190,17 @@ class ApiService extends IApiService {
 
     final result = await _graphQlService.query(query);
 
-    if(result.hasException) {
+    if (result.hasException) {
       throw Exception(result.exception);
     }
 
-    if(result.data == null) {
+    if (result.data == null) {
       return [];
     }
     final List<Object?> rawDrops = result.data!['drops'];
-    final List<Drop> drops = rawDrops.map((e) => Drop.fromJson(e as Map<String, dynamic>)).toList(); 
+    final List<Drop> drops =
+        rawDrops.map((e) => Drop.fromJson(e as Map<String, dynamic>)).toList();
 
     return drops;
   }
-
-  
 }

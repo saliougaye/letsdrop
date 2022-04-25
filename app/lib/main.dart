@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:letsdrop/blocs/countries/countries_bloc.dart';
 import 'package:letsdrop/blocs/drops/drops_bloc.dart';
 import 'package:letsdrop/blocs/theme/theme_bloc.dart';
-import 'package:letsdrop/constants/theme.dart';
+import 'package:letsdrop/constants/routes.dart';
 import 'package:letsdrop/services/api_service.dart';
+import 'package:letsdrop/ui/add_drop/add_drop.dart';
 import 'package:letsdrop/ui/home/home.dart';
 
 void main() {
@@ -30,8 +30,12 @@ class MyApp extends StatelessWidget {
           return MaterialApp(
             title: 'LetsDrop',
             theme: state.appThemeData,
-            home: const Home(),
             debugShowCheckedModeBanner: false,
+            initialRoute: AppRoutes.Home,
+            routes: {
+              AppRoutes.Home: (context) => const Home(),
+              AppRoutes.Add: (context) => const AddNewDropScreen(),
+            },
           );
         }
       ),

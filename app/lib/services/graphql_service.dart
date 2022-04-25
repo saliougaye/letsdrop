@@ -28,7 +28,7 @@ class GraphQlService {
     MutationOptions options =
         MutationOptions(document: gql(query), variables: variables ?? {});
 
-    final result = await _client.mutate(options);
+    final result = await _client.mutate(options).timeout(const Duration(seconds: 5));
 
     return result;
   }

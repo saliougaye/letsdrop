@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:letsdrop/blocs/theme/theme_bloc.dart';
 import 'package:letsdrop/constants/colors.dart';
+import 'package:letsdrop/constants/routes.dart';
 import 'package:letsdrop/constants/theme.dart';
 import 'package:letsdrop/widgets/drop_list.dart';
 
@@ -79,6 +80,9 @@ class Home extends StatelessWidget {
               ],
               currentIndex: 1,
               onTap: (index) {
+                if(index == 0) {
+                  Navigator.pushNamed(context, AppRoutes.Add);
+                }
               },
               isFloating: true,
             ),
