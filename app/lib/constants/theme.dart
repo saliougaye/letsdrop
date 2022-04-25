@@ -38,7 +38,8 @@ class AppThemes {
         ),
       ),
       cardColor: AppColors.darkGreenBlue.withOpacity(0.5),
-      dividerColor: AppColors.darkGreenBlue
+      dividerColor: AppColors.darkGreenBlue,
+      splashColor: AppColors.skyGrey// TODO remove
     ),
     AppTheme.dark: ThemeData(
       backgroundColor: AppColors.skyBlue,
@@ -72,7 +73,8 @@ class AppThemes {
         ),
       ),
       cardColor: AppColors.darkShadeBlueMagenta.withOpacity(0.5),
-      dividerColor: AppColors.darkShadeBlueMagenta
+      dividerColor: AppColors.darkShadeBlueMagenta,
+      splashColor: AppColors.skyViolet// TODO remove
     )
   };
 }
