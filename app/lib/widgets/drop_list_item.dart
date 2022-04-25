@@ -8,6 +8,7 @@ import 'package:letsdrop/constants/colors.dart';
 import 'package:letsdrop/models/drop.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import 'package:skeletons/skeletons.dart';
+
 class DropItem extends StatelessWidget {
   final Drop drop;
   final parser = EmojiParser();
@@ -18,7 +19,7 @@ class DropItem extends StatelessWidget {
     return BlocBuilder<ThemeBloc, ThemeState>(
       builder: (themeContext, state) {
         return Container(
-          padding: const EdgeInsets.only(right: 15, left: 15, bottom: 18),
+          padding: const EdgeInsets.only(bottom: 18),
           child: Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(8.0),
@@ -31,7 +32,7 @@ class DropItem extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     // image
-                    Container(
+                    SizedBox(
                       width: 65,
                       height: 65,
                       child: ClipRRect(
@@ -40,11 +41,16 @@ class DropItem extends StatelessWidget {
                           _getAlbumImage(),
                           fit: BoxFit.fill,
                           scale: 0.8,
-                          loadingBuilder: (context, child, loadingProgress) => const Skeleton(
-                            isLoading: true,
-                            skeleton: SkeletonAvatar(),
-                            child: SkeletonAvatar(),
-                          ),
+                          loadingBuilder: (context, child, loadingProgress) {
+                            if (loadingProgress == null) {
+                              return child;
+                            }
+
+                            return const Skeleton(
+                                isLoading: true,
+                                skeleton: SkeletonAvatar(),
+                                child: SkeletonAvatar());
+                          },
                         ),
                       ),
                     ),
@@ -54,15 +60,22 @@ class DropItem extends StatelessWidget {
                         padding: const EdgeInsets.only(left: 10, right: 20),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            Text(drop.album,
-                                style: Theme.of(themeContext).textTheme.headline3),
+                            Padding(
+                              padding: const EdgeInsets.only(bottom: 5.0),
+                              child: Text(drop.album,
+                                  style: Theme.of(themeContext)
+                                      .textTheme
+                                      .headline3),
+                            ),
                             RichText(
                                 text: TextSpan(
                                     children: drop.artists
                                         .map((e) => TextSpan(
-                                            style: Theme.of(themeContext).textTheme.subtitle1,
+                                            style: Theme.of(themeContext)
+                                                .textTheme
+                                                .subtitle1,
                                             text: e.name,
                                             recognizer: TapGestureRecognizer()
                                               ..onTap = () => _onArtistTap(

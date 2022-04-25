@@ -31,6 +31,11 @@ class AppThemes {
           fontFamily: AppFontFamily.proximaNova,
           decoration: TextDecoration.underline
         ),
+        subtitle2: TextStyle(
+          color: AppColors.darkGreenBlue,
+          fontFamily: AppFontFamily.proximaNova,
+          fontSize: 14
+        ),
       ),
       cardColor: AppColors.darkGreenBlue.withOpacity(0.5),
       dividerColor: AppColors.darkGreenBlue
@@ -59,6 +64,11 @@ class AppThemes {
           fontSize: 14,
           fontFamily: AppFontFamily.proximaNova,
           decoration: TextDecoration.underline
+        ),
+        subtitle2: TextStyle(
+          color: AppColors.darkShadeBlueMagenta,
+          fontFamily: AppFontFamily.proximaNova,
+          fontSize: 14
         ),
       ),
       cardColor: AppColors.darkShadeBlueMagenta.withOpacity(0.5),

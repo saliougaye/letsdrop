@@ -41,6 +41,8 @@ dependencies:
   url_launcher: ^6.1.0
   flutter_emoji: ^2.4.0
   skeletons: ^0.0.3
+  grouped_list: ^4.2.0
+  intl: ^0.17.0
 
 dev_dependencies:
   flutter_test:

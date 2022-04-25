@@ -35,7 +35,7 @@ class Home extends StatelessWidget {
               elevation: 0,
             ),
             body: Container(
-              padding: const EdgeInsets.only(top: 20),
+              padding: const EdgeInsets.only(top: 20, right: 15, left: 15),
               child: const DropList(),
             ),
           );
