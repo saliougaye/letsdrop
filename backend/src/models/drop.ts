@@ -2,7 +2,7 @@ import Artist from "./artist";
 import Country from "./country";
 
 interface Drop {
-    id?: string,
+    _id: string,
     album: string,
     dropDate: Date,
     country: Country,

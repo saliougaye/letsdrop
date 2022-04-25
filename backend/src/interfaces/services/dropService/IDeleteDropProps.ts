@@ -1,5 +1,5 @@
 interface IDeleteDropProps {
-    id: number
+    id: string
 }
 
 export default IDeleteDropProps;

@@ -1,7 +1,7 @@
 interface ICountryResponse {
     name: ICountryName,
     ccn3: string,
-    cca2: string
+    flag: string
 }
 
 

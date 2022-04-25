@@ -1,4 +1,5 @@
 import { IResolvers } from "mercurius";
+import DropOutput from "../interfaces/dto/DropOutput";
 import Artist from "../models/artist";
 import Country from "../models/country";
 import Drop from "../models/drop";
@@ -17,12 +18,12 @@ const resolvers : IResolvers = {
                 token: args.token
             })
         },
-        drops: (_, args, ctx, info) : Promise<Drop[]> => {
+        drops: (_, args, ctx, info) : Promise<DropOutput[]> => {
             return dropsService.getDrops();
         },
     },
     Mutation: {
-        createDrop: (_, args, ctx, info) : Promise<Drop> => {
+        createDrop: (_, args, ctx, info) : Promise<DropOutput> => {
 
             const { drop } = args
 
@@ -35,7 +36,7 @@ const resolvers : IResolvers = {
                 }
             });
         },
-        deleteDrop: (_, args, ctx, info) : Promise<Drop> => {
+        deleteDrop: (_, args, ctx, info) : Promise<DropOutput> => {
             return dropsService.deleteDrop({
                 id: args.id
             });

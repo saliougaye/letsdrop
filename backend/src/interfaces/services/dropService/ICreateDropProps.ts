@@ -1,7 +1,8 @@
 import Drop from "../../../models/drop";
+import DropInput from "../../dto/DropInput";
 
 interface ICreateDropProps {
-    drop: Drop
+    drop: DropInput
 }
 
 export default ICreateDropProps;

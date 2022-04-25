@@ -4,7 +4,7 @@ const schema = gql`
     type Country {
         name: String
         code: String
-        abbreviation: String
+        flag: String
     }
 
     type Artist {
@@ -15,7 +15,7 @@ const schema = gql`
     }
 
     type Drop {
-        _id: ID!
+        id: ID!
         album: String!
         dropDate: String!
         country: Country!
@@ -25,7 +25,7 @@ const schema = gql`
     input CountryInput {
         name: String
         code: String
-        abbreviation: String
+        flag: String
     }
 
     input ArtistInput {
