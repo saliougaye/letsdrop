@@ -1,7 +1,7 @@
 interface Country {
     name: string,
     code: string,
-    flag: string
+    abbreviation: string
 }
 
 export default Country;

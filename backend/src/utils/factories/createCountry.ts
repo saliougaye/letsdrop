@@ -5,6 +5,6 @@ export const createCountry = (countryResponse: ICountryResponse) : Country => {
     return {
         name: countryResponse.name.common,
         code: countryResponse.ccn3,
-        flag: countryResponse.flags.svg
+        abbreviation: countryResponse.cca2.toLowerCase()
     }
 }

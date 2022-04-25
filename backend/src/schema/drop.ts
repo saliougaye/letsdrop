@@ -24,7 +24,7 @@ const countrySchema = new Schema<Country>({
         required: true,
         trim: true
     },
-    flag: {
+    abbreviation: {
         type: MongoString,
         required: true,
         trim: true

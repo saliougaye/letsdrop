@@ -4,7 +4,7 @@ const schema = gql`
     type Country {
         name: String
         code: String
-        flag: String
+        abbreviation: String
     }
 
     type Artist {
@@ -25,7 +25,7 @@ const schema = gql`
     input CountryInput {
         name: String
         code: String
-        flag: String
+        abbreviation: String
     }
 
     input ArtistInput {
