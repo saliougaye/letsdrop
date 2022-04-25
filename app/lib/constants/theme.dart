@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:letsdrop/constants/colors.dart';
+import 'package:letsdrop/constants/font_family.dart';
 
 class AppThemes {
   AppThemes._();
@@ -7,33 +8,60 @@ class AppThemes {
   static final appThemeData = {
     AppTheme.light: ThemeData(
       backgroundColor: AppColors.lightSeaGreen,
-      textTheme: const TextTheme(
+      textTheme: TextTheme(
+        headline1: TextStyle(
+          color: Colors.white,
+          fontFamily: AppFontFamily.proximaNova,
+          fontSize: 24,
+          fontWeight: FontWeight.w400
+        ),
         headline2: TextStyle(
-          color: AppColors.darkGreenBlue
+          color: AppColors.darkGreenBlue,
+          fontFamily: AppFontFamily.proximaNova,
+          fontSize: 18
         ),
         headline3: TextStyle(
-          color: AppColors.greenBlue
+          color: AppColors.lightSeaGreen,
+          fontSize: 16,
+          fontFamily: AppFontFamily.proximaNova
         ),
         subtitle1: TextStyle(
-          color: AppColors.skyGrey
+          color: AppColors.skyGrey,
+          fontSize: 14,
+          fontFamily: AppFontFamily.proximaNova,
+          decoration: TextDecoration.underline
         ),
-
       ),
+      cardColor: AppColors.darkGreenBlue.withOpacity(0.5),
       dividerColor: AppColors.darkGreenBlue
     ),
     AppTheme.dark: ThemeData(
       backgroundColor: AppColors.skyBlue,
-      textTheme: const TextTheme(
+      textTheme: TextTheme(
+        headline1: TextStyle(
+          color: Colors.white,
+          fontFamily: AppFontFamily.proximaNova,
+          fontSize: 24,
+          fontWeight: FontWeight.w400
+        ),
         headline2: TextStyle(
-          color: AppColors.darkShadeBlueMagenta
+          color: AppColors.darkShadeBlueMagenta,
+          fontFamily: AppFontFamily.proximaNova,
+          fontSize: 18
         ),
         headline3: TextStyle(
-          color: AppColors.darkBlue
+          color: AppColors.skyBlue,
+          fontSize: 16,
+          fontFamily: AppFontFamily.proximaNova
         ),
         subtitle1: TextStyle(
-          color: AppColors.skyViolet
+          color: AppColors.skyViolet,
+          fontSize: 14,
+          fontFamily: AppFontFamily.proximaNova,
+          decoration: TextDecoration.underline
         ),
       ),
+      cardColor: AppColors.darkShadeBlueMagenta.withOpacity(0.5),
       dividerColor: AppColors.darkShadeBlueMagenta
     )
   };

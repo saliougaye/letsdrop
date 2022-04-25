@@ -28,7 +28,7 @@ class ApiService extends IApiService {
     const String query = """
       mutation {
         createDrop(drop: \$drop) {
-          _id
+          id
           album
           dropDate
           country {
@@ -67,7 +67,7 @@ class ApiService extends IApiService {
     const String query = """
       mutation {
         deleteDrop(id: \$id) {
-          _id
+          id
           album
           dropDate
           country {
@@ -172,7 +172,7 @@ class ApiService extends IApiService {
     const String query = """
       query {
         drops {
-          _id
+          id
           album
           dropDate
           country {
@@ -199,8 +199,8 @@ class ApiService extends IApiService {
     if(result.data == null) {
       return [];
     }
-    final List<Map<String, dynamic>> rawDrops = result.data!['drops'];
-    final List<Drop> drops = rawDrops.map((e) => Drop.fromJson(e)).toList(); 
+    final List<Object?> rawDrops = result.data!['drops'];
+    final List<Drop> drops = rawDrops.map((e) => Drop.fromJson(e as Map<String, dynamic>)).toList(); 
 
     return drops;
   }

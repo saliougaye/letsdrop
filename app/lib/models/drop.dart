@@ -5,7 +5,7 @@ import 'artist.dart';
 class Drop {
     String id;
     String album;
-    String dropDate;
+    DateTime dropDate;
     Country country;
     List<Artist> artists;
 
@@ -22,9 +22,9 @@ class Drop {
     
 
     factory Drop.fromJson(Map<String, dynamic> json) => Drop(
-        id: json["_id"],
+        id: json["id"],
         album: json["album"],
-        dropDate: json["dropDate"],
+        dropDate: DateTime.parse(json["dropDate"]),
         country: Country.fromJson(json["country"]),
         artists: List<Artist>.from(json["artists"].map((x) => Artist.fromJson(x))),
     );

@@ -8,6 +8,6 @@ export const createDropOutput = (drop: Drop) : DropOutput => {
         album: drop.album,
         artists: drop.artists,
         country: drop.country,
-        dropDate: moment(drop.dropDate).format("yyyy-MM-dd")
+        dropDate: moment(drop.dropDate).format()
     }
 }

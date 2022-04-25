@@ -7,14 +7,14 @@ part 'theme_event.dart';
 part 'theme_state.dart';
 
 class ThemeBloc extends Bloc<ThemeEvent, ThemeState> {
-  ThemeBloc() : super(
-      ThemeState(
-        appTheme: AppThemes.appThemeData[AppTheme.light]!
-  )) {
+  ThemeBloc()
+      : super(ThemeState(
+            appThemeData: AppThemes.appThemeData[AppTheme.dark]!,
+            appTheme: AppTheme.dark)) {
     on<ThemeEvent>((event, emit) {
-      emit(
-        ThemeState(appTheme: AppThemes.appThemeData[event.appTheme]!)
-      );
+      emit(ThemeState(
+          appThemeData: AppThemes.appThemeData[event.appTheme]!,
+          appTheme: event.appTheme));
     });
   }
 }
