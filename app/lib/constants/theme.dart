@@ -36,10 +36,16 @@ class AppThemes {
           fontFamily: AppFontFamily.proximaNova,
           fontSize: 14
         ),
+        overline: TextStyle(
+          color: AppColors.darkGreenBlue,
+          fontFamily: AppFontFamily.proximaNova,
+          fontSize: 15
+        )
       ),
       cardColor: AppColors.darkGreenBlue.withOpacity(0.5),
       dividerColor: AppColors.darkGreenBlue,
-      splashColor: AppColors.skyGrey// TODO remove
+      splashColor: AppColors.darkGreenBlue,  // TODO remove
+      
     ),
     AppTheme.dark: ThemeData(
       backgroundColor: AppColors.skyBlue,
@@ -71,10 +77,15 @@ class AppThemes {
           fontFamily: AppFontFamily.proximaNova,
           fontSize: 14
         ),
+        overline: TextStyle(
+          color: AppColors.darkShadeBlueMagenta,
+          fontFamily: AppFontFamily.proximaNova,
+          fontSize: 18,
+        ),
       ),
       cardColor: AppColors.darkShadeBlueMagenta.withOpacity(0.5),
       dividerColor: AppColors.darkShadeBlueMagenta,
-      splashColor: AppColors.skyViolet// TODO remove
+      splashColor: AppColors.darkShadeBlueMagenta// TODO remove
     )
   };
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:letsdrop/blocs/countries/countries_bloc.dart';
 import 'package:letsdrop/blocs/drops/drops_bloc.dart';
 import 'package:letsdrop/blocs/theme/theme_bloc.dart';
 import 'package:letsdrop/constants/routes.dart';
@@ -23,6 +24,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => DropsBloc(apiService: apiService)..add(LoadDrops())
+        ),
+        BlocProvider(
+          create: (context) => CountriesBloc(apiService: apiService)..add(LoadCountries())
         )
       ],
       child: BlocBuilder<ThemeBloc, ThemeState>(

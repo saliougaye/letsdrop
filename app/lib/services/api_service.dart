@@ -104,8 +104,14 @@ class ApiService extends IApiService {
 
   @override
   Future<List<Artist>> getArtists(String name, String token) async {
+
+    if(name == "") {
+      return [];
+    }
+
+
     const String query = """
-      query {
+      query GetArtists(\$token: String!, \$name: String!){
         artists(
           token: \$token
           name: \$name
@@ -129,9 +135,9 @@ class ApiService extends IApiService {
       return [];
     }
 
-    final List<Map<String, dynamic>> rawArtists = result.data!['artists'];
+    final List<Object?> rawArtists = result.data!['artists'];
     final List<Artist> artists =
-        rawArtists.map((e) => Artist.fromJson(e)).toList();
+        rawArtists.map((e) => Artist.fromJson(e as Map<String, dynamic>)).toList();
 
     return artists;
   }

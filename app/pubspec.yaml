@@ -46,6 +46,7 @@ dependencies:
   curved_navigation_bar: ^1.0.3
   custom_navigation_bar: ^0.8.2
   marquee: ^2.2.1
+  flutter_typeahead: ^3.2.5
 
 dev_dependencies:
   flutter_test:

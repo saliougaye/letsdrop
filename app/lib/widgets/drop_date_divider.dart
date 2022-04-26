@@ -3,10 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:letsdrop/blocs/theme/theme_bloc.dart';
 
-class DateDivider extends StatelessWidget {
+class DropDateDivider extends StatelessWidget {
   final DateTime date;
 
-  const DateDivider({Key? key, required this.date}) : super(key: key);
+  const DropDateDivider({Key? key, required this.date}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
