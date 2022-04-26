@@ -7,6 +7,7 @@ import 'package:letsdrop/constants/token.dart';
 import 'package:letsdrop/models/artist.dart';
 import 'package:letsdrop/models/country.dart';
 import 'package:letsdrop/services/api_service.dart';
+import 'package:letsdrop/widgets/loading.dart';
 import 'package:letsdrop/widgets/text_divider.dart';
 
 class AddDropForm extends StatelessWidget {
@@ -20,7 +21,13 @@ class AddDropForm extends StatelessWidget {
       builder: (context, state) {
         return Form(
             child: Column(
-          children: [_albumField(context), _flagChooser(context)],
+          children: [
+            _albumField(context),
+            const SizedBox(
+              height: 20,
+            ),
+             _flagChooser(context)
+          ],
         ));
       },
     );
@@ -39,21 +46,19 @@ class AddDropForm extends StatelessWidget {
                 style: Theme.of(themeContext).textTheme.overline,
               ),
             ),
-            Flexible(
-              child: TextFormField(
-                decoration: InputDecoration(
-                  focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(15),
-                      borderSide:
-                          BorderSide(color: Theme.of(themeContext).cardColor)),
-                  enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(15),
-                      borderSide:
-                          BorderSide(color: Theme.of(themeContext).cardColor)),
-                ),
-                style: Theme.of(themeContext).textTheme.headline2,
-                cursorColor: Theme.of(themeContext).splashColor,
+            TextFormField(
+              decoration: InputDecoration(
+                focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(15),
+                    borderSide:
+                        BorderSide(color: Theme.of(themeContext).cardColor)),
+                enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(15),
+                    borderSide:
+                        BorderSide(color: Theme.of(themeContext).cardColor)),
               ),
+              style: Theme.of(themeContext).textTheme.headline2,
+              cursorColor: Theme.of(themeContext).splashColor,
             )
           ],
         )
@@ -80,11 +85,17 @@ class AddDropForm extends StatelessWidget {
                       print(value);
                     })
               )
-            : (const CircularProgressIndicator());
+            : Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: const [
+                Loading()
+              ],
+            );
         return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-                'Album Name',
+                'Country',
                 style: Theme.of(themeContext).textTheme.overline,
               ),
             field
