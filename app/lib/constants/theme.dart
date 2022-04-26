@@ -87,7 +87,8 @@ class AppThemes {
       cardColor: AppColors.darkShadeBlueMagenta.withOpacity(0.5),
       dividerColor: AppColors.darkShadeBlueMagenta,
       splashColor: AppColors.darkShadeBlueMagenta, // TODO remove
-      indicatorColor: AppColors.darkBlue
+      indicatorColor: AppColors.darkBlue,
+
     )
   };
 }

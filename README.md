@@ -10,8 +10,9 @@ To Do:
 - App:
     - UI
         - Add Drop Page
+            - Remote Select ✅
+        - Calendar Page
             - Calendar Picker with number of drops in the days
-            - Remote Select
         - System Widget
             - Create iOS Widgets
             - Create Android Widgets

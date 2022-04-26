@@ -7,6 +7,8 @@ import 'package:letsdrop/constants/token.dart';
 import 'package:letsdrop/models/artist.dart';
 import 'package:letsdrop/models/country.dart';
 import 'package:letsdrop/services/api_service.dart';
+import 'package:letsdrop/widgets/album_name_input.dart';
+import 'package:letsdrop/widgets/artist_form_chooser.dart';
 import 'package:letsdrop/widgets/loading.dart';
 import 'package:letsdrop/widgets/text_divider.dart';
 
@@ -22,48 +24,20 @@ class AddDropForm extends StatelessWidget {
         return Form(
             child: Column(
           children: [
-            _albumField(context),
+            const AlbumNameInput(),
             const SizedBox(
               height: 20,
             ),
-             _flagChooser(context)
+            ArtistInput(fetchArtist: _fetchArtist)
+             //_flagChooser(context)
           ],
         ));
       },
     );
   }
 
-  Widget _albumField(BuildContext themeContext) {
-    return Column(
-      children: [
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(bottom: 8.0),
-              child: Text(
-                'Album Name',
-                style: Theme.of(themeContext).textTheme.overline,
-              ),
-            ),
-            TextFormField(
-              decoration: InputDecoration(
-                focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(15),
-                    borderSide:
-                        BorderSide(color: Theme.of(themeContext).cardColor)),
-                enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(15),
-                    borderSide:
-                        BorderSide(color: Theme.of(themeContext).cardColor)),
-              ),
-              style: Theme.of(themeContext).textTheme.headline2,
-              cursorColor: Theme.of(themeContext).splashColor,
-            )
-          ],
-        )
-      ],
-    );
+  Future<List<Artist>> _fetchArtist(String value) {
+    return apiService.getArtists(value, Token.token);
   }
 
   Widget _flagChooser(BuildContext themeContext) {
@@ -102,24 +76,6 @@ class AddDropForm extends StatelessWidget {
           ],
         );
       },
-    );
-  }
-
-  Widget _artistChooser() {
-    return Column(
-      children: [
-        Text('Album'),
-        TypeAheadFormField<Artist>(onSuggestionSelected: (selected) {
-          print(selected);
-        }, itemBuilder: (context, itemData) {
-          return ListTile(
-            title: Text(itemData.name),
-          );
-        }, suggestionsCallback: (value) {
-          print(value);
-          return apiService.getArtists(value, Token.token);
-        })
-      ],
     );
   }
 }
