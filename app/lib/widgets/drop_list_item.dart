@@ -11,14 +11,15 @@ import 'package:skeletons/skeletons.dart';
 class DropItem extends StatelessWidget {
   final Drop drop;
   final Function(Drop) onDismiss;
-  DropItem({Key? key, required this.drop, required this.onDismiss}) : super(key: key);
+  const DropItem({Key? key, required this.drop, required this.onDismiss})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ThemeBloc, ThemeState>(
       builder: (themeContext, state) {
         return Container(
-          padding: const EdgeInsets.only(bottom: 18),
+          padding: const EdgeInsets.only(bottom: 22),
           child: Dismissible(
             key: Key(drop.id),
             onDismissed: (direction) {
@@ -38,9 +39,16 @@ class DropItem extends StatelessWidget {
             ),
             child: Container(
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(8.0),
-                color: Theme.of(themeContext).cardColor,
-              ),
+                  borderRadius: BorderRadius.circular(8.0),
+                  color: Theme.of(themeContext).cardColor,
+                  boxShadow: [
+                    BoxShadow(
+                        color: Theme.of(themeContext).cardColor,
+                        spreadRadius: 5,
+                        blurRadius: 7,
+                        offset: const Offset(0, 3)
+                      )
+                  ]),
               child: Padding(
                 padding: const EdgeInsets.all(10.0),
                 child: Center(
@@ -81,25 +89,28 @@ class DropItem extends StatelessWidget {
                               children: [
                                 Padding(
                                   padding: const EdgeInsets.only(bottom: 5.0),
-                                  child: Text(drop.album,
-                                      style: Theme.of(themeContext)
-                                          .textTheme
-                                          .headline3,
-                                      ),
+                                  child: Text(
+                                    drop.album,
+                                    style: Theme.of(themeContext)
+                                        .textTheme
+                                        .headline3,
+                                  ),
                                 ),
                                 RichText(
                                     text: TextSpan(
                                         children: drop.artists
                                             .map((e) => TextSpan(
-                                                style: Theme.of(themeContext)
-                                                    .textTheme
-                                                    .subtitle1,
-                                                text: e.name,
-                                                recognizer: TapGestureRecognizer()
-                                                  ..onTap = () => _onArtistTap(
-                                                      context, e.link),
-                                                  )
-                                                )
+                                                  style: Theme.of(themeContext)
+                                                      .textTheme
+                                                      .subtitle1,
+                                                  text: e.name,
+                                                  recognizer:
+                                                      TapGestureRecognizer()
+                                                        ..onTap = () =>
+                                                            _onArtistTap(
+                                                                context,
+                                                                e.link),
+                                                ))
                                             .toList()))
                               ],
                             )),
@@ -107,7 +118,7 @@ class DropItem extends StatelessWidget {
                       // flag
                       Text(
                         drop.country.flag,
-                        style: TextStyle(fontSize: 30),
+                        style: const TextStyle(fontSize: 30),
                       ),
                     ],
                   ),

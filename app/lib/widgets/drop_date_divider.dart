@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:letsdrop/blocs/theme/theme_bloc.dart';
+import 'package:letsdrop/utils/addVerticalSpace.dart';
 
 class DropDateDivider extends StatelessWidget {
   final DateTime date;
@@ -38,7 +39,8 @@ class DropDateDivider extends StatelessWidget {
             ),
             Divider(
               color: Theme.of(context).dividerColor,
-            )
+            ),
+            addVerticalSpace(10)
           ],
         );
       },

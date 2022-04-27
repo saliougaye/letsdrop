@@ -22,11 +22,14 @@ class DropsLoadingFailed extends DropsState {}
 
 class DropsCreationFailed extends DropsState {}
 
-class DeleteDropFailed extends DropsState {
+
+class DeleteDropState extends DropsState {
+  final bool succeded;
   final List<Drop> drops;
 
-  const DeleteDropFailed({ required this.drops });
+  const DeleteDropState({ required this.succeded, required this.drops });
 
   @override
   List<Object> get props => [drops];
 }
+

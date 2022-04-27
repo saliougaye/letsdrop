@@ -8,15 +8,20 @@ class GraphQlService {
   factory GraphQlService(String url) {
     HttpLink link = HttpLink(url);
 
-    GraphQLClient client = GraphQLClient(link: link, cache: GraphQLCache());
+    GraphQLClient client = GraphQLClient(
+      link: link, 
+      cache: GraphQLCache()
+    );
 
     return GraphQlService._(client);
   }
 
   Future<QueryResult> query(
       String query, { Map<String, dynamic>? variables }) async {
-    QueryOptions options =
-        QueryOptions(document: gql(query), variables: variables ?? {});
+    QueryOptions options = QueryOptions(
+      document: gql(query), 
+      variables: variables ?? {}, 
+      fetchPolicy: FetchPolicy.networkOnly);
 
     final result = await _client.query(options);
 

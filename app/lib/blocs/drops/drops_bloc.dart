@@ -76,14 +76,16 @@ class DropsBloc extends Bloc<DropsEvent, DropsState> {
         final dropDeleted = await apiService.deleteDrop(event.drop.id);
 
         emit(
-          DropsLoaded(
-            drops: List.from(state.drops)..where((element) => element.id != dropDeleted.id)
+          DeleteDropState(
+            succeded: true,
+            drops: state.drops.where((element) => element.id != dropDeleted.id).toList()
           )
         );
       
       } catch (e) {
         emit(
-          DeleteDropFailed(
+          DeleteDropState(
+            succeded: false,
             drops: state.drops
           )
         );

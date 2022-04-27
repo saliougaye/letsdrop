@@ -13,6 +13,8 @@ To Do:
             - Remote Select ✅
         - Calendar Page
             - Calendar Picker with number of drops in the days
+        - Home Page
+            - Add RefreshIndicator
         - System Widget
             - Create iOS Widgets
             - Create Android Widgets

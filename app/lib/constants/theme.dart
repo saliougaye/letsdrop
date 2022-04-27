@@ -10,31 +10,33 @@ class AppThemes {
       backgroundColor: AppColors.lightSeaGreen,
       textTheme: TextTheme(
         headline1: TextStyle(
-          color: Colors.white,
-          fontFamily: AppFontFamily.proximaNova,
-          fontSize: 24,
-          fontWeight: FontWeight.w400
+          color: AppColors.darkBlue,
+          fontFamily: AppFontFamily.montserrat,
+          fontSize: 26,
+          fontWeight: FontWeight.normal
         ),
         headline2: TextStyle(
           color: AppColors.darkGreenBlue,
           fontFamily: AppFontFamily.proximaNova,
-          fontSize: 18
+          fontSize: 24,
+          fontWeight: FontWeight.w500
         ),
         headline3: TextStyle(
-          color: AppColors.lightSeaGreen,
+          color: AppColors.skyGrey,
           fontSize: 16,
           fontFamily: AppFontFamily.proximaNova
         ),
         subtitle1: TextStyle(
-          color: AppColors.skyGrey,
-          fontSize: 14,
+          color: AppColors.lightSeaGreen,
+          fontSize: 16,
           fontFamily: AppFontFamily.proximaNova,
           decoration: TextDecoration.underline
         ),
         subtitle2: TextStyle(
           color: AppColors.darkGreenBlue,
           fontFamily: AppFontFamily.proximaNova,
-          fontSize: 14
+          fontSize: 18,
+          fontWeight: FontWeight.w400
         ),
         overline: TextStyle(
           color: AppColors.darkGreenBlue,
@@ -45,38 +47,40 @@ class AppThemes {
       cardColor: AppColors.darkGreenBlue.withOpacity(0.5),
       dividerColor: AppColors.darkGreenBlue,
       splashColor: AppColors.darkGreenBlue,
-      indicatorColor: AppColors.greenBlue
+      indicatorColor: AppColors.greenBlue,
       
     ),
     AppTheme.dark: ThemeData(
       backgroundColor: AppColors.skyBlue,
       textTheme: TextTheme(
         headline1: TextStyle(
-          color: Colors.white,
-          fontFamily: AppFontFamily.proximaNova,
-          fontSize: 24,
-          fontWeight: FontWeight.w400
+          color: AppColors.darkShadeBlueMagenta,
+          fontFamily: AppFontFamily.montserrat,
+          fontSize: 26,
+          fontWeight: FontWeight.normal
         ),
         headline2: TextStyle(
           color: AppColors.darkShadeBlueMagenta,
           fontFamily: AppFontFamily.proximaNova,
-          fontSize: 18
+          fontSize: 24,
+          fontWeight: FontWeight.w500
         ),
         headline3: TextStyle(
-          color: AppColors.skyBlue,
+          color: AppColors.skyViolet,
           fontSize: 16,
           fontFamily: AppFontFamily.proximaNova
         ),
         subtitle1: TextStyle(
-          color: AppColors.skyViolet,
-          fontSize: 14,
+          color: AppColors.skyBlue,
+          fontSize: 16,
           fontFamily: AppFontFamily.proximaNova,
           decoration: TextDecoration.underline
         ),
         subtitle2: TextStyle(
           color: AppColors.darkShadeBlueMagenta,
           fontFamily: AppFontFamily.proximaNova,
-          fontSize: 14
+          fontSize: 18,
+          fontWeight: FontWeight.w400
         ),
         overline: TextStyle(
           color: AppColors.darkShadeBlueMagenta,
@@ -86,7 +90,7 @@ class AppThemes {
       ),
       cardColor: AppColors.darkShadeBlueMagenta.withOpacity(0.5),
       dividerColor: AppColors.darkShadeBlueMagenta,
-      splashColor: AppColors.darkShadeBlueMagenta, // TODO remove
+      splashColor: AppColors.darkShadeBlueMagenta,
       indicatorColor: AppColors.darkBlue,
 
     )

@@ -15,35 +15,46 @@ class DropList extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocListener<DropsBloc, DropsState>(
       listener: (context, state) {
-        if (state is DeleteDropFailed) {
-          const snackBar =
-              SnackBar(content: Text("Can't Delete Drop. Retry Later"));
+        if (state is DeleteDropState && !state.succeded) {
+          const snackBar = SnackBar(
+            content: Text("Can't Delete Drop. Retry Later"),
+          );
 
           ScaffoldMessenger.of(context).showSnackBar(snackBar);
         }
 
-        // if (state is DropsLoaded) {
-        //   const snackBar = SnackBar(content: Text("Drop Deleted"));
+        if (state is DeleteDropState && state.succeded) {
+          const snackBar = SnackBar(
+            content: Text("Drop Deleted"),
+          );
 
-        //   ScaffoldMessenger.of(context).showSnackBar(snackBar);
-
-        // }
+          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+        }
       },
       child: BlocBuilder<DropsBloc, DropsState>(
         builder: (context, state) {
+          Widget widget2See;
           if (state is DropsLoadingFailed) {
-            return _loadErrorWidget();
+            widget2See = _loadErrorWidget();
+          } else if (state is DeleteDropState) {
+            widget2See = _dropsList(state.drops);
+          } else if (state is DropsLoaded) {
+            widget2See =  _dropsList(state.drops);
+          } else {
+            widget2See = const Loading();
           }
 
-          if (state is DeleteDropFailed) {
-            return _dropsList(state.drops);
-          }
+          
+          return RefreshIndicator(
+            child: widget2See, 
+            onRefresh: () {
+              context.read<DropsBloc>().add(LoadDrops());
 
-          if (state is DropsLoaded) {
-            return _dropsList(state.drops);
-          }
-
-          return const Loading();
+              return Future.delayed(
+                Duration(seconds: 1)
+              );
+            }
+          );
         },
       ),
     );
@@ -78,7 +89,13 @@ class DropList extends StatelessWidget {
     );
   }
 
-  GroupedListView<Drop, DateTime> _dropsList(List<Drop> drops) {
+  Widget _dropsList(List<Drop> drops) {
+    if (drops.isEmpty) {
+      return const Text(
+        'No drop saved. Try to add one',
+      );
+    }
+
     return GroupedListView<Drop, DateTime>(
       elements: drops,
       groupBy: (element) => element.dropDate,
@@ -95,6 +112,7 @@ class DropList extends StatelessWidget {
       floatingHeader: false,
       order: GroupedListOrder.ASC,
       shrinkWrap: true,
+      physics: const AlwaysScrollableScrollPhysics(),
     );
   }
 }
