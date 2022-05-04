@@ -26,7 +26,7 @@ class Home extends StatelessWidget {
               child: Column(
                 children: [
                   addVerticalSpace(20),
-                  const Appbar(name: "User"),
+                  const Appbar(name: "Good Morning User"),
                   addVerticalSpace(10),
                   const DropList(),
                 ],

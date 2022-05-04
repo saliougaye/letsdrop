@@ -4,15 +4,19 @@ import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:letsdrop/blocs/theme/theme_bloc.dart';
 import 'package:letsdrop/constants/token.dart';
 import 'package:letsdrop/models/artist.dart';
+import 'package:letsdrop/utils/addVerticalSpace.dart';
 
 class ArtistSelect extends StatelessWidget {
   final int index;
   final Future<List<Artist>> Function(String) fetchArtist;
+  final void Function(int) removeInput;
 
   const ArtistSelect(
       {Key? key,
       required this.fetchArtist,
-      required this.index})
+      required this.index,
+      required this.removeInput
+      })
       : super(key: key);
 
   @override
@@ -26,7 +30,7 @@ class ArtistSelect extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Artist $index',
+                    'Artist',
                     style: Theme.of(context).textTheme.overline,
                   ),
                   TypeAheadFormField<Artist>(
@@ -54,12 +58,25 @@ class ArtistSelect extends StatelessWidget {
                       ),
                     ),
                   ),
-                  const SizedBox(
-                    height: 15,
-                  ),
                 ],
               ),
             ),
+            (() {
+              if(index != 0) {
+                return IconButton(
+                  onPressed: () {
+                    removeInput(index);
+                  }, 
+                  icon: const Icon(
+                    Icons.delete,
+                    color: Colors.red,
+                  )
+                );
+              }
+
+              return addVerticalSpace(0);
+            }())
+            
           ],
         );
       },

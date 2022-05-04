@@ -7,6 +7,7 @@ import 'package:letsdrop/constants/token.dart';
 import 'package:letsdrop/models/artist.dart';
 import 'package:letsdrop/models/country.dart';
 import 'package:letsdrop/services/api_service.dart';
+import 'package:letsdrop/utils/addVerticalSpace.dart';
 import 'package:letsdrop/widgets/album_name_input.dart';
 import 'package:letsdrop/widgets/artist_form_chooser.dart';
 import 'package:letsdrop/widgets/loading.dart';
@@ -25,9 +26,7 @@ class AddDropForm extends StatelessWidget {
             child: Column(
           children: [
             const AlbumNameInput(),
-            const SizedBox(
-              height: 20,
-            ),
+            addVerticalSpace(10),
             ArtistInput(fetchArtist: _fetchArtist)
              //_flagChooser(context)
           ],

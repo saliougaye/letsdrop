@@ -41,7 +41,7 @@ class AppThemes {
         overline: TextStyle(
           color: AppColors.darkGreenBlue,
           fontFamily: AppFontFamily.proximaNova,
-          fontSize: 15
+          fontSize: 18
         )
       ),
       cardColor: AppColors.darkGreenBlue.withOpacity(0.5),

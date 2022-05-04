@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:letsdrop/blocs/theme/theme_bloc.dart';
 import 'package:letsdrop/constants/theme.dart';
+import 'package:letsdrop/utils/addVerticalSpace.dart';
 import 'package:letsdrop/widgets/add_drop_form.dart';
+import 'package:letsdrop/widgets/appbar.dart';
 
 class AddNewDropScreen extends StatelessWidget {
   const AddNewDropScreen({Key? key}) : super(key: key);
@@ -13,17 +15,18 @@ class AddNewDropScreen extends StatelessWidget {
       builder: (context, state) {
         return Scaffold(
           backgroundColor: Theme.of(context).backgroundColor,
-          appBar: AppBar(
-            title: Text(
-              "Add Drop",
-              style: Theme.of(context).textTheme.headline1,
-            ),
-            backgroundColor: const Color(0x44000000),
-            elevation: 0,
-          ),
-          body: Container(
+          body: Padding(
             padding: const EdgeInsets.only(top: 30, right: 20, left: 20),
-            child: AddDropForm(),
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  addVerticalSpace(20),
+                  const Appbar(name: "Add Drop"),
+                  addVerticalSpace(10),
+                  AddDropForm()
+                ],
+              ),
+            ),
           ),
         );
       },

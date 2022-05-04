@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:letsdrop/models/artist.dart';
+import 'package:letsdrop/utils/addVerticalSpace.dart';
 import 'package:letsdrop/widgets/artist_select.dart';
 
 class ArtistInput extends StatefulWidget {
@@ -18,7 +19,7 @@ class _ArtistInputState extends State<ArtistInput> {
   void initState() {
     setState(() {
       _artistsSelect
-          .add(ArtistSelect(fetchArtist: widget.fetchArtist, index: 0));
+          .add(ArtistSelect(fetchArtist: widget.fetchArtist, index: 0, removeInput: _removeInput,));
     });
 
     super.initState();
@@ -29,15 +30,37 @@ class _ArtistInputState extends State<ArtistInput> {
       _artistsSelect.add(ArtistSelect(
         fetchArtist: widget.fetchArtist,
         index: _artistsSelect.length,
+        removeInput: _removeInput,
       ));
     });
+  }
+
+  _removeInput(int index) {
+    
+    setState(() {
+      _artistsSelect.removeAt(index);
+    });
+
+
   }
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        ..._artistsSelect,
+        ListView.builder(
+          scrollDirection: Axis.vertical,
+          shrinkWrap: true,
+          itemCount: _artistsSelect.length,
+          itemBuilder: (context, index) {
+            return Column(
+              children: [
+                _artistsSelect[index],
+                addVerticalSpace(10)
+              ],
+            );
+          },
+        ),
         InkWell(
           onTap: () {
             _addArtist();

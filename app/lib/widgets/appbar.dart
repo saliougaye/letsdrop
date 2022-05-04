@@ -16,7 +16,7 @@ class Appbar extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              "Good Morning $name",
+              name,
               style: Theme.of(context).textTheme.headline1,
             ),
             IconButton(
