@@ -64,6 +64,9 @@ class _AddNewDropScreenState extends State<AddNewDropScreen> {
               ..showSnackBar(SnackBar(content: Text(message)));
 
 
+        context.read<DropsBloc>().add(LoadDrops());
+
+
       },
       child: BlocBuilder<DropsBloc, DropsState>(
         builder: (context, state) {
@@ -120,7 +123,7 @@ class _AddNewDropScreenState extends State<AddNewDropScreen> {
               country: formCountry!,
               artists: formArtists)));
 
-      context.read<DropsBloc>().add(LoadDrops());
+      
 
       Navigator.pop(context);
     }

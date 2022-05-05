@@ -48,6 +48,8 @@ dependencies:
   marquee: ^2.2.1
   flutter_typeahead: ^3.2.5
   dropdown_search: ^3.0.1
+  workmanager: ^0.4.1
+  flutter_local_notifications: ^9.5.1
 
 dev_dependencies:
   flutter_test:
