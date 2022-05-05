@@ -12,6 +12,7 @@ import 'package:letsdrop/widgets/album_name_input.dart';
 import 'package:letsdrop/widgets/artist_form_chooser.dart';
 import 'package:letsdrop/widgets/loading.dart';
 import 'package:letsdrop/widgets/text_divider.dart';
+import 'package:dropdown_search/dropdown_search.dart';
 
 class AddDropForm extends StatelessWidget {
   final ApiService apiService = ApiService();
@@ -26,6 +27,8 @@ class AddDropForm extends StatelessWidget {
             child: Column(
           children: [
             const AlbumNameInput(),
+            addVerticalSpace(10),
+            _flagChooser(context),
             addVerticalSpace(10),
             ArtistInput(fetchArtist: _fetchArtist)
              //_flagChooser(context)
@@ -44,20 +47,49 @@ class AddDropForm extends StatelessWidget {
       builder: (context, state) {
         Widget field = state is CountriesLoaded
             ? (
-               DropdownButtonFormField<Country>(
-                    items: state.countries.map((e) {
-                      return DropdownMenuItem<Country>(
-                          child: Row(
-                        children: [
-                          Text(e.flag),
-                          Text(e.name),
-                        ],
-                      ));
-                    }).toList(),
-                    onChanged: (value) {
-                      print(value);
-                    })
+
+              DropdownSearch<Country>(
+                mode: Mode.BOTTOM_SHEET,
+                items: state.countries,
+                dropdownSearchDecoration: InputDecoration(
+                    focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(15),
+                        borderSide: BorderSide(
+                            color: Theme.of(themeContext).cardColor)),
+                    enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(15),
+                        borderSide: BorderSide(
+                            color: Theme.of(themeContext).cardColor)),
+                  ),
+                itemAsString: (item) => item?.name ?? "",
+                onChanged: print,
+                showSearchBox: true,
+                showClearButton: true,
+                showSelectedItems: true,
+                compareFn: (item, selectedItem) {
+                  return item?.name == selectedItem?.name;
+                },
+                selectedItem: state.countries[0],
+                dropdownBuilder:_flagDropdownItem,
+                
               )
+              
+              //  DropdownButtonFormField<Country>(
+              //       items: state.countries.map((e) {
+              //         return DropdownMenuItem<Country>(
+              //             child: Row(
+              //           children: [
+              //             Text(e.flag ?? "no flag"),
+              //             Text(e.name),
+              //           ],
+              //         ),
+              //         value: e,
+              //         );
+              //       }).toList(),
+              //       onChanged: (value) {
+              //         print(value);
+              //       })
+            )
             : Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: const [
@@ -75,6 +107,31 @@ class AddDropForm extends StatelessWidget {
           ],
         );
       },
+    );
+  }
+
+  Widget _flagDropdownItem(BuildContext context, Country? item) {
+    return Container(
+      height: 38,
+      child: Row(
+        children: [
+          Expanded(
+            flex: 1,
+            child: Text(
+              item?.flag ?? "",
+              style: const TextStyle(fontSize: 30),
+            ),
+          ),
+          Expanded(
+            flex: 4,
+            child: Text(
+              item?.name ?? "<>",
+              overflow: TextOverflow.ellipsis,
+              style: Theme.of(context).textTheme.headline2
+            ),
+          )
+        ],
+      ),
     );
   }
 }

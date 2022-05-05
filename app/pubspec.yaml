@@ -47,6 +47,7 @@ dependencies:
   custom_navigation_bar: ^0.8.2
   marquee: ^2.2.1
   flutter_typeahead: ^3.2.5
+  dropdown_search: ^3.0.1
 
 dev_dependencies:
   flutter_test:

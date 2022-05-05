@@ -153,7 +153,7 @@ class ApiService extends IApiService {
         }
       }
     """;
-
+  
     final result = await _graphQlService.query(query);
 
     if (result.hasException) {
@@ -164,9 +164,9 @@ class ApiService extends IApiService {
       return [];
     }
 
-    final List<Map<String, dynamic>> rawCountries = result.data!['countries'];
+    final List<Object?> rawCountries = result.data!['countries'];
     final List<Country> countries =
-        rawCountries.map((e) => Country.fromJson(e)).toList();
+        rawCountries.map((e) => Country.fromJson(e as Map<String, dynamic>)).toList();
 
     return countries;
   }

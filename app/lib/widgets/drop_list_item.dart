@@ -117,7 +117,7 @@ class DropItem extends StatelessWidget {
                       ),
                       // flag
                       Text(
-                        drop.country.flag,
+                        drop.country.flag ?? "",
                         style: const TextStyle(fontSize: 30),
                       ),
                     ],
