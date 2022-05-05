@@ -10,30 +10,51 @@ import 'package:letsdrop/services/api_service.dart';
 import 'package:letsdrop/utils/addVerticalSpace.dart';
 import 'package:letsdrop/widgets/album_name_input.dart';
 import 'package:letsdrop/widgets/artist_form_chooser.dart';
+import 'package:letsdrop/widgets/date_input.dart';
 import 'package:letsdrop/widgets/loading.dart';
 import 'package:letsdrop/widgets/text_divider.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 
-class AddDropForm extends StatelessWidget {
-  final ApiService apiService = ApiService();
+class AddDropForm extends StatefulWidget {
 
-  AddDropForm({Key? key}) : super(key: key);
+  final void Function(Country?) onSaveCountry;
+  final void Function(String?) onSaveAlbumName;
+  final void Function(Artist?) onSaveArtist;
+  final void Function(DateTime?) onSaveDate;
+
+  const AddDropForm({
+    Key? key, 
+    required this.onSaveCountry, 
+    required this.onSaveAlbumName,
+    required this.onSaveArtist,
+    required this.onSaveDate
+  }) : super(key: key);
+
+  @override
+  State<AddDropForm> createState() => _AddDropFormState();
+}
+
+class _AddDropFormState extends State<AddDropForm> {
+  final ApiService apiService = ApiService();
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ThemeBloc, ThemeState>(
       builder: (context, state) {
-        return Form(
-            child: Column(
+        return Column(
           children: [
-            const AlbumNameInput(),
-            addVerticalSpace(10),
-            _flagChooser(context),
-            addVerticalSpace(10),
-            ArtistInput(fetchArtist: _fetchArtist)
-             //_flagChooser(context)
+        AlbumNameInput(onSave: widget.onSaveAlbumName,),
+        addVerticalSpace(10),
+        _flagChooser(context),
+        addVerticalSpace(10),
+        DateInput(label: "Drop date", onSave: widget.onSaveDate,),
+        addVerticalSpace(10),
+        ArtistInput(
+          fetchArtist: _fetchArtist,
+          onSaveArtist: widget.onSaveArtist,
+        )
           ],
-        ));
+        );
       },
     );
   }
@@ -71,24 +92,9 @@ class AddDropForm extends StatelessWidget {
                 },
                 selectedItem: state.countries[0],
                 dropdownBuilder:_flagDropdownItem,
-                
+                validator: (value) => value == null ? "Please select a country" : null,
+                onSaved: widget.onSaveCountry,
               )
-              
-              //  DropdownButtonFormField<Country>(
-              //       items: state.countries.map((e) {
-              //         return DropdownMenuItem<Country>(
-              //             child: Row(
-              //           children: [
-              //             Text(e.flag ?? "no flag"),
-              //             Text(e.name),
-              //           ],
-              //         ),
-              //         value: e,
-              //         );
-              //       }).toList(),
-              //       onChanged: (value) {
-              //         print(value);
-              //       })
             )
             : Row(
               mainAxisAlignment: MainAxisAlignment.center,

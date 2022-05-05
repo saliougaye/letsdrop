@@ -1,3 +1,4 @@
+import 'package:intl/intl.dart';
 import 'package:letsdrop/models/country.dart';
 
 import 'artist.dart';
@@ -31,8 +32,8 @@ class Drop {
 
     Map<String, dynamic> toJson() => {
         "album": album,
-        "dropDate": dropDate,
+        "dropDate": DateFormat("yyyy-MM-dd").format(dropDate),
         "country": country.toJson(),
-        "artists": List<dynamic>.from(artists.map((x) => x.toJson())),
+        "artists": List<Map<String, dynamic>>.from(artists.map((x) => x.toJson())),
     };
 }

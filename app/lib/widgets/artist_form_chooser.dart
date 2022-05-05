@@ -5,8 +5,9 @@ import 'package:letsdrop/widgets/artist_select.dart';
 
 class ArtistInput extends StatefulWidget {
   final Future<List<Artist>> Function(String) fetchArtist;
+  final void Function(Artist?) onSaveArtist;
 
-  const ArtistInput({Key? key, required this.fetchArtist}) : super(key: key);
+  const ArtistInput({Key? key, required this.fetchArtist, required this.onSaveArtist}) : super(key: key);
 
   @override
   State<ArtistInput> createState() => _ArtistInputState();
@@ -14,12 +15,13 @@ class ArtistInput extends StatefulWidget {
 
 class _ArtistInputState extends State<ArtistInput> {
   final List<ArtistSelect> _artistsSelect = List.empty(growable: true);
+  
 
   @override
   void initState() {
     setState(() {
       _artistsSelect
-          .add(ArtistSelect(fetchArtist: widget.fetchArtist, index: 0, removeInput: _removeInput,));
+          .add(ArtistSelect(fetchArtist: widget.fetchArtist, index: 0, removeInput: _removeInput, onSave: widget.onSaveArtist,));
     });
 
     super.initState();
@@ -31,6 +33,7 @@ class _ArtistInputState extends State<ArtistInput> {
         fetchArtist: widget.fetchArtist,
         index: _artistsSelect.length,
         removeInput: _removeInput,
+        onSave: widget.onSaveArtist,
       ));
     });
   }

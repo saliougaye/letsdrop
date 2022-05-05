@@ -51,7 +51,7 @@ class DropList extends StatelessWidget {
               context.read<DropsBloc>().add(LoadDrops());
 
               return Future.delayed(
-                Duration(seconds: 1)
+                const Duration(seconds: 1)
               );
             }
           );

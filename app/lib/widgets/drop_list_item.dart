@@ -103,7 +103,7 @@ class DropItem extends StatelessWidget {
                                                   style: Theme.of(themeContext)
                                                       .textTheme
                                                       .subtitle1,
-                                                  text: e.name,
+                                                  text: "${e.name}, ",
                                                   recognizer:
                                                       TapGestureRecognizer()
                                                         ..onTap = () =>

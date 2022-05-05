@@ -40,7 +40,7 @@ class BottomFloatingNavigationBar extends StatelessWidget {
           ),
         ],
         currentIndex: 1,
-        onTap: (index) {
+        onTap: (index) async {
           if (index == 0) {
             Navigator.pushNamed(context, AppRoutes.Add);
           }

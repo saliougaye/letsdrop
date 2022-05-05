@@ -13,12 +13,15 @@ class ArtistSelect extends StatelessWidget {
   final int index;
   final Future<List<Artist>> Function(String) fetchArtist;
   final void Function(int) removeInput;
+  final void Function(Artist?) onSave;
 
   const ArtistSelect(
       {Key? key,
       required this.fetchArtist,
       required this.index,
-      required this.removeInput})
+      required this.removeInput,
+      required this.onSave
+      })
       : super(key: key);
 
   @override
@@ -64,6 +67,8 @@ class ArtistSelect extends StatelessWidget {
 
                     },
                     isFilteredOnline: true,
+                    validator: (value) => index == 0 && value == null ? "Please select at least one artist" : null,
+                    onSaved: onSave,
                   )
                 ],
               ),

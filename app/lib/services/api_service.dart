@@ -24,24 +24,24 @@ class ApiService extends IApiService {
   @override
   Future<Drop> createDrop(Drop drop) async {
     const String query = """
-      mutation {
+      mutation CreateDrop(\$drop: DropInput!){
         createDrop(drop: \$drop) {
           id
           album
           dropDate
           country {
-            code
             name
+            code
             flag
           }
           artists {
             id
             name
-            image
             link
           }
         }
       }
+
     """;
 
     final result = await _graphQlService
@@ -55,8 +55,8 @@ class ApiService extends IApiService {
       throw Exception("Drop not found");
     }
 
-    final Map<String, dynamic> rawDrop = result.data!['deleteDrop'];
-    final Drop dropCreated = Drop.fromJson(rawDrop);
+    final Object? rawDrop = result.data!['createDrop'];
+    final Drop dropCreated = Drop.fromJson(rawDrop as Map<String, dynamic>);
 
     return dropCreated;
   }
