@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:letsdrop/models/artist.dart';
+import 'package:letsdrop/models/spotify_artist.dart';
 import 'package:letsdrop/utils/addVerticalSpace.dart';
 import 'package:letsdrop/widgets/artist_select.dart';
 
 class ArtistInput extends StatefulWidget {
-  final Future<List<Artist>> Function(String) fetchArtist;
-  final void Function(Artist?) onSaveArtist;
+  final Future<List<SpotifyArtist>> Function(String) fetchArtist;
+  final void Function(SpotifyArtist?) onSaveArtist;
 
   const ArtistInput({Key? key, required this.fetchArtist, required this.onSaveArtist}) : super(key: key);
 

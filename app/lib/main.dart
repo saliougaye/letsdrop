@@ -5,10 +5,11 @@ import 'package:letsdrop/blocs/countries/countries_bloc.dart';
 import 'package:letsdrop/blocs/drops/drops_bloc.dart';
 import 'package:letsdrop/blocs/theme/theme_bloc.dart';
 import 'package:letsdrop/constants/routes.dart';
+import 'package:letsdrop/models/user.dart';
 import 'package:letsdrop/services/api_service.dart';
-import 'package:letsdrop/services/notification_service.dart';
 import 'package:letsdrop/ui/add_drop/add_drop.dart';
 import 'package:letsdrop/ui/home/home.dart';
+import 'package:letsdrop/ui/login/login.dart';
 import 'package:workmanager/workmanager.dart';
 
 
@@ -43,13 +44,13 @@ Future<void> main() async {
   final apiService = ApiService();
 
   
-  await Workmanager().initialize(onCallbackDispatcher,
-      isInDebugMode: false);
+  // await Workmanager().initialize(onCallbackDispatcher,
+  //     isInDebugMode: false);
 
-  await Workmanager().registerPeriodicTask(
-      "lets_drop_notification_worker", "lets_drop_notification_worker_periodic",
-      frequency: const Duration(minutes: 15),
-      initialDelay: const Duration(seconds: 1));
+  // await Workmanager().registerPeriodicTask(
+  //     "lets_drop_notification_worker", "lets_drop_notification_worker_periodic",
+  //     frequency: const Duration(minutes: 15),
+  //     initialDelay: const Duration(seconds: 1));
 
   runApp(MyApp(
     apiService: apiService,
@@ -59,8 +60,8 @@ Future<void> main() async {
 
 
 showNotification(FlutterLocalNotificationsPlugin flp) async {
-  const android = AndroidNotificationDetails('channel id', 'channel NAME',
-      channelDescription: 'CHANNEL DESCRIPTION',
+  const android = AndroidNotificationDetails('letsdropchannel', 'lets drop',
+      channelDescription: 'LetsDrop Notification',
       priority: Priority.high,
       importance: Importance.max);
   const iOS = IOSNotificationDetails();
@@ -97,10 +98,26 @@ class MyApp extends StatelessWidget {
           title: 'LetsDrop',
           theme: state.appThemeData,
           debugShowCheckedModeBanner: false,
-          initialRoute: AppRoutes.Home,
+          initialRoute: AppRoutes.Login,
+          onGenerateRoute: (settings) {
+            final args = settings.arguments;
+            switch (settings.name) {
+              case AppRoutes.Home:
+
+                if (args is SpotifyUser) {
+                  return MaterialPageRoute(
+                    builder: (context) => Home(user: args)
+                  );
+                }
+
+                break;
+              default:
+                return null;
+            }
+          },
           routes: {
-            AppRoutes.Home: (context) => const Home(),
             AppRoutes.Add: (context) => const AddNewDropScreen(),
+            AppRoutes.Login: (context) => Login()
           },
         );
       }),

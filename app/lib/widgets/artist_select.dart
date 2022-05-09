@@ -5,15 +5,15 @@ import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:letsdrop/blocs/theme/theme_bloc.dart';
 import 'package:letsdrop/constants/assets.dart';
 import 'package:letsdrop/constants/token.dart';
-import 'package:letsdrop/models/artist.dart';
+import 'package:letsdrop/models/spotify_artist.dart';
 import 'package:letsdrop/utils/addVerticalSpace.dart';
 import 'package:skeletons/skeletons.dart';
 
 class ArtistSelect extends StatelessWidget {
   final int index;
-  final Future<List<Artist>> Function(String) fetchArtist;
+  final Future<List<SpotifyArtist>> Function(String) fetchArtist;
   final void Function(int) removeInput;
-  final void Function(Artist?) onSave;
+  final void Function(SpotifyArtist?) onSave;
 
   const ArtistSelect(
       {Key? key,
@@ -38,7 +38,7 @@ class ArtistSelect extends StatelessWidget {
                     'Artist',
                     style: Theme.of(context).textTheme.overline,
                   ),
-                  DropdownSearch<Artist>(
+                  DropdownSearch<SpotifyArtist>(
                     mode: Mode.BOTTOM_SHEET,
                     dropdownSearchDecoration: InputDecoration(
                       focusedBorder: OutlineInputBorder(
@@ -93,7 +93,7 @@ class ArtistSelect extends StatelessWidget {
     );
   }
 
-  Widget _artistDropdownItem(BuildContext context, Artist? item) {
+  Widget _artistDropdownItem(BuildContext context, SpotifyArtist? item) {
 
     if(item == null) {
       return Container();
@@ -138,7 +138,7 @@ class ArtistSelect extends StatelessWidget {
     );
   }
 
-  String _getArtistImage(Artist? artist) {
+  String _getArtistImage(SpotifyArtist? artist) {
 
     return artist?.image ?? AppAssets.NoAlbumImage;
 

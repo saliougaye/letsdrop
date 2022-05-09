@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:letsdrop/blocs/drops/drops_bloc.dart';
 import 'package:letsdrop/blocs/theme/theme_bloc.dart';
-import 'package:letsdrop/models/artist.dart';
+import 'package:letsdrop/models/spotify_artist.dart';
 import 'package:letsdrop/models/country.dart';
 import 'package:letsdrop/models/drop.dart';
 import 'package:letsdrop/utils/addVerticalSpace.dart';
@@ -21,7 +21,7 @@ class _AddNewDropScreenState extends State<AddNewDropScreen> {
 
   String? formAlbumName;
   Country? formCountry;
-  List<Artist> formArtists = List.empty(growable: true);
+  List<SpotifyArtist> formArtists = List.empty(growable: true);
   DateTime formDate = DateTime.now();
 
   _onSaveAlbumName(String? album) {
@@ -32,7 +32,7 @@ class _AddNewDropScreenState extends State<AddNewDropScreen> {
     formCountry = country;
   }
 
-  _onSaveArtists(Artist? artist) {
+  _onSaveArtists(SpotifyArtist? artist) {
     if (artist != null) {
       formArtists.add(artist);
     }

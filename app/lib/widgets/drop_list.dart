@@ -30,6 +30,9 @@ class DropList extends StatelessWidget {
 
           ScaffoldMessenger.of(context).showSnackBar(snackBar);
         }
+
+        context
+            .read<DropsBloc>().add(LoadDrops());
       },
       child: BlocBuilder<DropsBloc, DropsState>(
         builder: (context, state) {
@@ -102,7 +105,8 @@ class DropList extends StatelessWidget {
       itemBuilder: (context, element) => DropItem(
         drop: element,
         onDismiss: (drop) {
-          context.read<DropsBloc>().add(DeleteDrop(drop: drop));
+          context
+            .read<DropsBloc>().add(DeleteDrop(drop: drop));
         },
       ),
       groupSeparatorBuilder: (value) => DropDateDivider(date: value),

@@ -1,14 +1,14 @@
 import 'package:intl/intl.dart';
 import 'package:letsdrop/models/country.dart';
 
-import 'artist.dart';
+import 'spotify_artist.dart';
 
 class Drop {
     String id;
     String album;
     DateTime dropDate;
     Country country;
-    List<Artist> artists;
+    List<SpotifyArtist> artists;
 
 
     
@@ -27,7 +27,7 @@ class Drop {
         album: json["album"],
         dropDate: DateTime.parse(json["dropDate"]),
         country: Country.fromJson(json["country"]),
-        artists: List<Artist>.from(json["artists"].map((x) => Artist.fromJson(x))),
+        artists: List<SpotifyArtist>.from(json["artists"].map((x) => SpotifyArtist.fromJson(x))),
     );
 
     Map<String, dynamic> toJson() => {

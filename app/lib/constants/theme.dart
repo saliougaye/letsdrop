@@ -42,7 +42,14 @@ class AppThemes {
           color: AppColors.darkGreenBlue,
           fontFamily: AppFontFamily.proximaNova,
           fontSize: 18
-        )
+        ),
+        button: TextStyle(
+          color: AppColors.greenBlue,
+          fontFamily: AppFontFamily.proximaNova,
+          fontSize: 18,
+          wordSpacing: 2,
+          letterSpacing: 1
+        ),
       ),
       cardColor: AppColors.darkGreenBlue.withOpacity(0.5),
       dividerColor: AppColors.darkGreenBlue,
@@ -86,6 +93,13 @@ class AppThemes {
           color: AppColors.darkShadeBlueMagenta,
           fontFamily: AppFontFamily.proximaNova,
           fontSize: 18,
+        ),
+        button: TextStyle(
+          color: AppColors.darkBlue,
+          fontFamily: AppFontFamily.proximaNova,
+          fontSize: 18,
+          wordSpacing: 2,
+          letterSpacing: 1
         ),
       ),
       cardColor: AppColors.darkShadeBlueMagenta.withOpacity(0.5),

@@ -4,9 +4,10 @@ import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:letsdrop/blocs/countries/countries_bloc.dart';
 import 'package:letsdrop/blocs/theme/theme_bloc.dart';
 import 'package:letsdrop/constants/token.dart';
-import 'package:letsdrop/models/artist.dart';
+import 'package:letsdrop/models/spotify_artist.dart';
 import 'package:letsdrop/models/country.dart';
 import 'package:letsdrop/services/api_service.dart';
+import 'package:letsdrop/services/spotify_service.dart';
 import 'package:letsdrop/utils/addVerticalSpace.dart';
 import 'package:letsdrop/widgets/album_name_input.dart';
 import 'package:letsdrop/widgets/artist_form_chooser.dart';
@@ -19,7 +20,7 @@ class AddDropForm extends StatefulWidget {
 
   final void Function(Country?) onSaveCountry;
   final void Function(String?) onSaveAlbumName;
-  final void Function(Artist?) onSaveArtist;
+  final void Function(SpotifyArtist?) onSaveArtist;
   final void Function(DateTime?) onSaveDate;
 
   const AddDropForm({
@@ -35,7 +36,7 @@ class AddDropForm extends StatefulWidget {
 }
 
 class _AddDropFormState extends State<AddDropForm> {
-  final ApiService apiService = ApiService();
+  final SpotifyService apiService = SpotifyService();
 
   @override
   Widget build(BuildContext context) {
@@ -59,8 +60,8 @@ class _AddDropFormState extends State<AddDropForm> {
     );
   }
 
-  Future<List<Artist>> _fetchArtist(String value) {
-    return apiService.getArtists(value, Token.token);
+  Future<List<SpotifyArtist>> _fetchArtist(String value) {
+    return apiService.getArtists(value);
   }
 
   Widget _flagChooser(BuildContext themeContext) {

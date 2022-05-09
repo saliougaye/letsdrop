@@ -1,4 +1,4 @@
-class Artist {
+class SpotifyArtist {
     
     String id;
     String name;
@@ -6,7 +6,7 @@ class Artist {
     String link;
 
     
-    Artist({
+    SpotifyArtist({
         required this.id,
         required this.name,
         this.image,
@@ -14,7 +14,14 @@ class Artist {
     });
 
 
-    factory Artist.fromJson(Map<String, dynamic> json) => Artist(
+    factory SpotifyArtist.fromSpotifyJson(Map<String, dynamic> json) => SpotifyArtist(
+        id: json["id"],
+        name: json["name"],
+        image: json["images"].length != 0 ?  json["images"][0]['url'] : null,
+        link: json["external_urls"]["spotify"],
+    );
+
+    factory SpotifyArtist.fromJson(Map<String, dynamic> json) => SpotifyArtist(
         id: json["id"],
         name: json["name"],
         image: json["image"],

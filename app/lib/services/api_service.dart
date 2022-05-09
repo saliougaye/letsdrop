@@ -1,4 +1,3 @@
-import 'package:letsdrop/models/artist.dart';
 import 'package:letsdrop/models/country.dart';
 import 'package:letsdrop/models/drop.dart';
 import 'package:letsdrop/services/graphql_service.dart';
@@ -7,8 +6,6 @@ abstract class IApiService {
   Future<List<Drop>> getDrops();
 
   Future<List<Country>> getCountries();
-
-  Future<List<Artist>> getArtists(String name, String token);
 
   Future<Drop> createDrop(Drop drop);
 
@@ -100,46 +97,6 @@ class ApiService extends IApiService {
     final Drop drop = Drop.fromJson(rawDrop as Map<String, dynamic>);
 
     return drop;
-  }
-
-  @override
-  Future<List<Artist>> getArtists(String name, String token) async {
-
-    if(name == "") {
-      return [];
-    }
-
-
-    const String query = """
-      query GetArtists(\$token: String!, \$name: String!){
-        artists(
-          token: \$token
-          name: \$name
-        ) {
-          id
-          name
-          image
-          link
-        }
-      }
-    """;
-
-    final result = await _graphQlService
-        .query(query, variables: {'token': token, 'name': name});
-
-    if (result.hasException) {
-      throw Exception(result.exception);
-    }
-
-    if (result.data == null) {
-      return [];
-    }
-
-    final List<Object?> rawArtists = result.data!['artists'];
-    final List<Artist> artists =
-        rawArtists.map((e) => Artist.fromJson(e as Map<String, dynamic>)).toList();
-
-    return artists;
   }
 
   @override

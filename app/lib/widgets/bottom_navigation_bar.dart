@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:letsdrop/constants/routes.dart';
 
 class BottomFloatingNavigationBar extends StatelessWidget {
-  const BottomFloatingNavigationBar({Key? key}) : super(key: key);
+
+  final String userImageUrl;
+  const BottomFloatingNavigationBar({Key? key, required this.userImageUrl}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -26,9 +28,9 @@ class BottomFloatingNavigationBar extends StatelessWidget {
             ),
           ),
           CustomNavigationBarItem(
-            icon: const CircleAvatar(
+            icon: CircleAvatar(
               backgroundImage: NetworkImage(
-                "https://i.scdn.co/image/ab6775700000ee85dee9cf3e1dec011d280d8fe8",
+                userImageUrl,
               ),
             ),
           ),
