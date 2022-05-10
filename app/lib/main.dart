@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:letsdrop/blocs/auth/auth_bloc.dart';
 import 'package:letsdrop/blocs/countries/countries_bloc.dart';
 import 'package:letsdrop/blocs/drops/drops_bloc.dart';
 import 'package:letsdrop/blocs/theme/theme_bloc.dart';
 import 'package:letsdrop/constants/routes.dart';
 import 'package:letsdrop/models/user.dart';
 import 'package:letsdrop/services/api_service.dart';
+import 'package:letsdrop/services/spotify_service.dart';
 import 'package:letsdrop/ui/add_drop/add_drop.dart';
 import 'package:letsdrop/ui/home/home.dart';
 import 'package:letsdrop/ui/login/login.dart';
@@ -42,6 +44,7 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   final apiService = ApiService();
+  final spotifyService = SpotifyService();
 
   
   // await Workmanager().initialize(onCallbackDispatcher,
@@ -54,6 +57,7 @@ Future<void> main() async {
 
   runApp(MyApp(
     apiService: apiService,
+    spotifyService: spotifyService,
   ));
 }
 
@@ -77,8 +81,9 @@ showNotification(FlutterLocalNotificationsPlugin flp) async {
 
 class MyApp extends StatelessWidget {
   final ApiService apiService; //  = ApiService();
+  final SpotifyService spotifyService;
 
-  MyApp({Key? key, required this.apiService}) : super(key: key);
+  MyApp({Key? key, required this.apiService, required this.spotifyService}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -90,7 +95,9 @@ class MyApp extends StatelessWidget {
                 DropsBloc(apiService: apiService)..add(LoadDrops())),
         BlocProvider(
             create: (context) =>
-                CountriesBloc(apiService: apiService)..add(LoadCountries()))
+                CountriesBloc(apiService: apiService)..add(LoadCountries())),
+        BlocProvider(
+          create: (context) => AuthBloc(spotifyService: spotifyService)..add(AppLoaded()))
       ],
       child: BlocBuilder<ThemeBloc, ThemeState>(
           builder: (BuildContext context, ThemeState state) {

@@ -25,12 +25,26 @@ class SpotifyService {
   }
 
   Future<SpotifyUser> login() async{
+    return getLoggedUser();
+  
+  }
 
-    
+  Future<SpotifyUser> getLoggedUser() async {
     final resp = await helper.get("https://api.spotify.com/v1/me");
 
     return SpotifyUser.fromSpotifyJson(jsonDecode(resp.body));
-  
+  }
+
+  Future<SpotifyUser?> isLogged() async{
+
+    final token = await helper.getTokenFromStorage();
+
+    if(token == null || !token.isValid())  {
+      return null;
+    }
+
+
+    return getLoggedUser();
   }
 
   Future<List<SpotifyArtist>> getArtists(String name) async {
