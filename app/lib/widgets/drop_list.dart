@@ -4,6 +4,7 @@ import 'package:grouped_list/grouped_list.dart';
 import 'package:letsdrop/blocs/drops/drops_bloc.dart';
 import 'package:letsdrop/blocs/theme/theme_bloc.dart';
 import 'package:letsdrop/models/drop.dart';
+import 'package:letsdrop/utils/addVerticalSpace.dart';
 import 'package:letsdrop/widgets/drop_date_divider.dart';
 import 'package:letsdrop/widgets/drop_list_item.dart';
 import 'package:letsdrop/widgets/loading.dart';
@@ -70,20 +71,19 @@ class DropList extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              addVerticalSpace(10),
               Text(
                 "⚠️",
                 style: Theme.of(context).textTheme.headline1,
               ),
-              const SizedBox(
-                height: 20,
-              ),
+              addVerticalSpace(10),
               Text(
                 "Sorry but we have a problem",
-                style: Theme.of(context).textTheme.headline1,
+                style: Theme.of(context).textTheme.headline2,
               ),
               Text(
                 ' Retry later',
-                style: Theme.of(context).textTheme.headline1,
+                style: Theme.of(context).textTheme.headline2,
               )
             ],
           ),

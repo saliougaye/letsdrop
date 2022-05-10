@@ -12,13 +12,13 @@ class AppThemes {
         headline1: TextStyle(
           color: AppColors.darkBlue,
           fontFamily: AppFontFamily.montserrat,
-          fontSize: 26,
+          fontSize: 24,
           fontWeight: FontWeight.normal
         ),
         headline2: TextStyle(
           color: AppColors.darkGreenBlue,
           fontFamily: AppFontFamily.proximaNova,
-          fontSize: 24,
+          fontSize: 22,
           fontWeight: FontWeight.w500
         ),
         headline3: TextStyle(
@@ -55,7 +55,9 @@ class AppThemes {
       dividerColor: AppColors.darkGreenBlue,
       splashColor: AppColors.darkGreenBlue,
       indicatorColor: AppColors.greenBlue,
-      
+      floatingActionButtonTheme: const FloatingActionButtonThemeData(
+        backgroundColor: AppColors.darkBlue,
+      )
     ),
     AppTheme.dark: ThemeData(
       backgroundColor: AppColors.skyBlue,
@@ -63,13 +65,13 @@ class AppThemes {
         headline1: TextStyle(
           color: AppColors.darkShadeBlueMagenta,
           fontFamily: AppFontFamily.montserrat,
-          fontSize: 26,
+          fontSize: 24,
           fontWeight: FontWeight.normal
         ),
         headline2: TextStyle(
           color: AppColors.darkShadeBlueMagenta,
           fontFamily: AppFontFamily.proximaNova,
-          fontSize: 24,
+          fontSize: 22,
           fontWeight: FontWeight.w500
         ),
         headline3: TextStyle(
@@ -106,7 +108,9 @@ class AppThemes {
       dividerColor: AppColors.darkShadeBlueMagenta,
       splashColor: AppColors.darkShadeBlueMagenta,
       indicatorColor: AppColors.darkBlue,
-
+      floatingActionButtonTheme: const FloatingActionButtonThemeData(
+        backgroundColor: AppColors.darkShadeBlueMagenta,
+      )
     )
   };
 }

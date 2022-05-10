@@ -28,7 +28,7 @@ class Login extends StatelessWidget {
           body: BlocBuilder<AuthBloc, AuthState>(
             builder: (context, state) {
               if (state is AuthAuthenticated) {
-                Future.delayed(const Duration(seconds: 2), () {
+                Future.delayed(const Duration(seconds: 0), () {
                   Navigator.pushNamed(context, AppRoutes.Home,
                       arguments: state.user);
                 });
