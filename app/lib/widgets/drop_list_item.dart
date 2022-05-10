@@ -5,6 +5,7 @@ import 'package:letsdrop/blocs/theme/theme_bloc.dart';
 import 'package:letsdrop/constants/assets.dart';
 
 import 'package:letsdrop/models/drop.dart';
+import 'package:letsdrop/models/spotify_artist.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import 'package:skeletons/skeletons.dart';
 
@@ -80,7 +81,8 @@ class DropItem extends StatelessWidget {
                       ),
 
                       // album title and artists links
-                      Flexible(
+                      Expanded(
+                        flex: 2,
                         child: Container(
                             padding: const EdgeInsets.only(left: 10, right: 20),
                             child: Column(
@@ -98,26 +100,19 @@ class DropItem extends StatelessWidget {
                                 ),
                                 RichText(
                                     text: TextSpan(
-                                        children: drop.artists
-                                            .map((e) => TextSpan(
-                                                  style: Theme.of(themeContext)
-                                                      .textTheme
-                                                      .subtitle1,
-                                                  text: e.name,
-                                                  recognizer:
-                                                      TapGestureRecognizer()
-                                                        ..onTap = () =>
-                                                            _onArtistTap(
-                                                                context,
-                                                                e.link),
-                                                ))
-                                            .toList()))
+                                        children: _buildArtistsNames(
+                                          drop.artists, 
+                                          Theme.of(themeContext).textTheme.subtitle1, 
+                                          context
+                                        )
+                                    )
+                                )
                               ],
                             )),
                       ),
                       // flag
                       Text(
-                        drop.country.flag,
+                        drop.country.flag ?? "",
                         style: const TextStyle(fontSize: 30),
                       ),
                     ],
@@ -129,6 +124,19 @@ class DropItem extends StatelessWidget {
         );
       },
     );
+  }
+
+  List<TextSpan> _buildArtistsNames(
+    List<SpotifyArtist> artists,
+    TextStyle? style,
+    BuildContext context
+  ) {
+    return artists.asMap().entries.map((e) => TextSpan(
+      style: style,
+      text: e.key == artists.length -1 ? e.value.name : "${e.value.name}, ",
+      recognizer: TapGestureRecognizer()
+      ..onTap = () => _onArtistTap(context,e.value.link)
+    )).toList();
   }
 
   Future<void> _onArtistTap(BuildContext context, String link) async {

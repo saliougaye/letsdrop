@@ -11,7 +11,6 @@ class DropDateDivider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    
     return BlocBuilder<ThemeBloc, ThemeState>(
       builder: (context, state) {
         return Column(
@@ -22,7 +21,9 @@ class DropDateDivider extends StatelessWidget {
                 Column(
                   children: [
                     Text(
-                      "${DateTime.now().difference(date).inDays.abs()} days left",
+                      DateTime.now().difference(date).inDays.abs() == 0
+                          ? "Today"
+                          : "${DateTime.now().difference(date).inDays.abs()} days left",
                       style: Theme.of(context).textTheme.headline2,
                     )
                   ],

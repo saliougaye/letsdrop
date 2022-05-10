@@ -3,7 +3,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:letsdrop/blocs/theme/theme_bloc.dart';
 
 class AlbumNameInput extends StatelessWidget {
-  const AlbumNameInput({Key? key}) : super(key: key);
+
+  final void Function(String?) onSave;
+  
+  const AlbumNameInput({Key? key, required this.onSave}) : super(key: key);
+  
 
   @override
   Widget build(BuildContext context) {
@@ -22,6 +26,7 @@ class AlbumNameInput extends StatelessWidget {
                   ),
                 ),
                 TextFormField(
+                  onSaved: onSave,
                   decoration: InputDecoration(
                     focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(15),
@@ -34,6 +39,7 @@ class AlbumNameInput extends StatelessWidget {
                   ),
                   style: Theme.of(context).textTheme.headline2,
                   cursorColor: Theme.of(context).splashColor,
+                  validator: (value) => value == null || value.isEmpty ? "Please insert the album name": null,
                 )
               ],
             )

@@ -5,23 +5,20 @@ Endpoint Used:
 
 To Do:
 - Backend
-    - Ouath2.0 with spotify
-    - Add Users
+    - Add Users with spotify Ids
+    - Security 
 - App:
     - UI
-        - Add Drop Page
-            - Remote Select ✅
-        - Calendar Page
-            - Calendar Picker with number of drops in the days
-        - Home Page
-            - Add RefreshIndicator
+        - Home Page  
+            - Fix RefreshIndicator when 0 element
         - System Widget
-            - Create iOS Widgets
-            - Create Android Widgets
             - Use Platform Specific Widget
+        - Beautify UI
+        - Save on shared preferences last theme
     - System
-        - Notification
-    
+        - Fix Notification
+
+
     
     
     

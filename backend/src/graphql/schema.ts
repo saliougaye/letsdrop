@@ -44,7 +44,6 @@ const schema = gql`
 
     type Query {
         countries: [Country!]!
-        artists(name: String!, token: String!): [Artist]!
         drops: [Drop!]!
     }
 
