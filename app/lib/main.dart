@@ -12,6 +12,7 @@ import 'package:letsdrop/services/spotify_service.dart';
 import 'package:letsdrop/ui/add_drop/add_drop.dart';
 import 'package:letsdrop/ui/home/home.dart';
 import 'package:letsdrop/ui/login/login.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:workmanager/workmanager.dart';
 
 
@@ -45,7 +46,7 @@ Future<void> main() async {
 
   final apiService = ApiService();
   final spotifyService = SpotifyService();
-
+  final sharedPreferences = await SharedPreferences.getInstance();
   
   // await Workmanager().initialize(onCallbackDispatcher,
   //     isInDebugMode: false);
@@ -58,6 +59,7 @@ Future<void> main() async {
   runApp(MyApp(
     apiService: apiService,
     spotifyService: spotifyService,
+    sharedPreferences: sharedPreferences,
   ));
 }
 
@@ -80,16 +82,17 @@ showNotification(FlutterLocalNotificationsPlugin flp) async {
 }
 
 class MyApp extends StatelessWidget {
-  final ApiService apiService; //  = ApiService();
+  final ApiService apiService;
   final SpotifyService spotifyService;
+  final SharedPreferences sharedPreferences;
 
-  MyApp({Key? key, required this.apiService, required this.spotifyService}) : super(key: key);
+  const MyApp({Key? key, required this.apiService, required this.spotifyService, required this.sharedPreferences}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(create: (context) => ThemeBloc()),
+        BlocProvider(create: (context) => ThemeBloc(sharedPreferences: sharedPreferences)),
         BlocProvider(
             create: (context) =>
                 DropsBloc(apiService: apiService)..add(LoadDrops())),
@@ -124,7 +127,7 @@ class MyApp extends StatelessWidget {
           },
           routes: {
             AppRoutes.Add: (context) => const AddNewDropScreen(),
-            AppRoutes.Login: (context) => Login()
+            AppRoutes.Login: (context) => const Login()
           },
         );
       }),
