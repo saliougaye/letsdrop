@@ -87,7 +87,7 @@ class _AddNewDropScreenState extends State<AddNewDropScreen> {
               child: Column(
                 children: [
                   addVerticalSpace(20),
-                  const Appbar(name: "Add Drop"),
+                  const Appbar(name: "New Drop"),
                   addVerticalSpace(10),
                   Form(
                       key: _formKey,

@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:grouped_list/grouped_list.dart';
 import 'package:letsdrop/blocs/drops/drops_bloc.dart';
 import 'package:letsdrop/blocs/theme/theme_bloc.dart';
+import 'package:letsdrop/constants/strings.dart';
 import 'package:letsdrop/models/drop.dart';
 import 'package:letsdrop/utils/addVerticalSpace.dart';
 import 'package:letsdrop/widgets/drop_date_divider.dart';
@@ -16,24 +17,21 @@ class DropList extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocListener<DropsBloc, DropsState>(
       listener: (context, state) {
+        String? message;
         if (state is DeleteDropState && !state.succeded) {
-          const snackBar = SnackBar(
-            content: Text("Can't Delete Drop. Retry Later"),
-          );
-
-          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+          message = AppStrings.DeleteDropFailedMessage;
         }
 
         if (state is DeleteDropState && state.succeded) {
-          const snackBar = SnackBar(
-            content: Text("Drop Deleted"),
-          );
-
-          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+          message = AppStrings.DeleteDropSuccessMessage;
         }
 
-        context
-            .read<DropsBloc>().add(LoadDrops());
+        if (message != null && message != "") {
+          ScaffoldMessenger.of(context)
+              .showSnackBar(SnackBar(content: Text(message)));
+
+          context.read<DropsBloc>().add(LoadDrops());
+        }
       },
       child: BlocBuilder<DropsBloc, DropsState>(
         builder: (context, state) {
@@ -43,22 +41,18 @@ class DropList extends StatelessWidget {
           } else if (state is DeleteDropState) {
             widget2See = _dropsList(state.drops);
           } else if (state is DropsLoaded) {
-            widget2See =  _dropsList(state.drops);
+            widget2See = _dropsList(state.drops);
           } else {
             widget2See = const Loading();
           }
 
-          
           return RefreshIndicator(
-            child: widget2See, 
-            onRefresh: () {
-              context.read<DropsBloc>().add(LoadDrops());
+              child: widget2See,
+              onRefresh: () {
+                context.read<DropsBloc>().add(LoadDrops());
 
-              return Future.delayed(
-                const Duration(seconds: 1)
-              );
-            }
-          );
+                return Future.delayed(const Duration(seconds: 1));
+              });
         },
       ),
     );
@@ -73,18 +67,14 @@ class DropList extends StatelessWidget {
             children: [
               addVerticalSpace(10),
               Text(
-                "⚠️",
+                AppStrings.WarningEmoji,
                 style: Theme.of(context).textTheme.headline1,
               ),
               addVerticalSpace(10),
               Text(
-                "Sorry but we have a problem",
+                AppStrings.WarningMessageLoadDrops,
                 style: Theme.of(context).textTheme.headline2,
               ),
-              Text(
-                ' Retry later',
-                style: Theme.of(context).textTheme.headline2,
-              )
             ],
           ),
         );
@@ -94,8 +84,13 @@ class DropList extends StatelessWidget {
 
   Widget _dropsList(List<Drop> drops) {
     if (drops.isEmpty) {
-      return const Text(
-        'No drop saved. Try to add one',
+      return BlocBuilder<ThemeBloc, ThemeState>(
+        builder: (context, state) {
+          return Text(
+            AppStrings.EmptyDropList,
+            style: Theme.of(context).textTheme.subtitle2,
+          );
+        },
       );
     }
 
@@ -105,8 +100,7 @@ class DropList extends StatelessWidget {
       itemBuilder: (context, element) => DropItem(
         drop: element,
         onDismiss: (drop) {
-          context
-            .read<DropsBloc>().add(DeleteDrop(drop: drop));
+          context.read<DropsBloc>().add(DeleteDrop(drop: drop));
         },
       ),
       groupSeparatorBuilder: (value) => DropDateDivider(date: value),

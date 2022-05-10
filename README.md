@@ -9,15 +9,12 @@ To Do:
     - Security 
 - App:
     - UI
-        - Calendar Page 
-            - Calendar Picker with number of drops in the days
         - Home Page  
             - Fix RefreshIndicator when 0 element
         - System Widget
-            - Create iOS Widgets
-            - Create Android Widgets
             - Use Platform Specific Widget
         - Beautify UI
+        - Save on shared preferences last theme
     - System
         - Fix Notification
 

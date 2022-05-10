@@ -57,7 +57,8 @@ class AppThemes {
       indicatorColor: AppColors.greenBlue,
       floatingActionButtonTheme: const FloatingActionButtonThemeData(
         backgroundColor: AppColors.darkBlue,
-      )
+      ),
+      highlightColor: AppColors.greenBlue,
     ),
     AppTheme.dark: ThemeData(
       backgroundColor: AppColors.skyBlue,
@@ -110,7 +111,8 @@ class AppThemes {
       indicatorColor: AppColors.darkBlue,
       floatingActionButtonTheme: const FloatingActionButtonThemeData(
         backgroundColor: AppColors.darkShadeBlueMagenta,
-      )
+      ),
+      highlightColor: AppColors.skyViolet,
     )
   };
 }

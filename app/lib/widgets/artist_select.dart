@@ -2,6 +2,7 @@ import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
+import 'package:intl/intl.dart';
 import 'package:letsdrop/blocs/theme/theme_bloc.dart';
 import 'package:letsdrop/constants/assets.dart';
 import 'package:letsdrop/constants/token.dart';
@@ -29,6 +30,8 @@ class ArtistSelect extends StatelessWidget {
     return BlocBuilder<ThemeBloc, ThemeState>(
       builder: (context, state) {
         return Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Expanded(
               child: Column(
@@ -82,7 +85,9 @@ class ArtistSelect extends StatelessWidget {
                     icon: const Icon(
                       Icons.delete,
                       color: Colors.red,
-                    ));
+                      size: 40,
+                    ),
+                    );
               }
 
               return addVerticalSpace(0);

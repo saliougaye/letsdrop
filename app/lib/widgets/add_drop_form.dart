@@ -12,6 +12,7 @@ import 'package:letsdrop/utils/addVerticalSpace.dart';
 import 'package:letsdrop/widgets/album_name_input.dart';
 import 'package:letsdrop/widgets/artist_form_chooser.dart';
 import 'package:letsdrop/widgets/date_input.dart';
+import 'package:letsdrop/widgets/flag_input.dart';
 import 'package:letsdrop/widgets/loading.dart';
 import 'package:letsdrop/widgets/text_divider.dart';
 import 'package:dropdown_search/dropdown_search.dart';
@@ -46,7 +47,7 @@ class _AddDropFormState extends State<AddDropForm> {
           children: [
         AlbumNameInput(onSave: widget.onSaveAlbumName,),
         addVerticalSpace(10),
-        _flagChooser(context),
+        FlagInput(onSaveCountry: widget.onSaveCountry),
         addVerticalSpace(10),
         DateInput(label: "Drop date", onSave: widget.onSaveDate,),
         addVerticalSpace(10),
@@ -64,81 +65,5 @@ class _AddDropFormState extends State<AddDropForm> {
     return apiService.getArtists(value);
   }
 
-  Widget _flagChooser(BuildContext themeContext) {
-    return BlocBuilder<CountriesBloc, CountriesState>(
-      builder: (context, state) {
-        Widget field = state is CountriesLoaded
-            ? (
 
-              DropdownSearch<Country>(
-                mode: Mode.BOTTOM_SHEET,
-                items: state.countries,
-                dropdownSearchDecoration: InputDecoration(
-                    focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(15),
-                        borderSide: BorderSide(
-                            color: Theme.of(themeContext).cardColor)),
-                    enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(15),
-                        borderSide: BorderSide(
-                            color: Theme.of(themeContext).cardColor)),
-                  ),
-                itemAsString: (item) => item?.name ?? "",
-                onChanged: print,
-                showSearchBox: true,
-                showClearButton: true,
-                showSelectedItems: true,
-                compareFn: (item, selectedItem) {
-                  return item?.name == selectedItem?.name;
-                },
-                selectedItem: state.countries[0],
-                dropdownBuilder:_flagDropdownItem,
-                validator: (value) => value == null ? "Please select a country" : null,
-                onSaved: widget.onSaveCountry,
-              )
-            )
-            : Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: const [
-                Loading()
-              ],
-            );
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-                'Country',
-                style: Theme.of(themeContext).textTheme.overline,
-              ),
-            field
-          ],
-        );
-      },
-    );
-  }
-
-  Widget _flagDropdownItem(BuildContext context, Country? item) {
-    return Container(
-      height: 38,
-      child: Row(
-        children: [
-          Expanded(
-            flex: 1,
-            child: Text(
-              item?.flag ?? "",
-              style: const TextStyle(fontSize: 30),
-            ),
-          ),
-          Expanded(
-            flex: 4,
-            child: Text(
-              item?.name ?? "<>",
-              overflow: TextOverflow.ellipsis,
-              style: Theme.of(context).textTheme.headline2
-            ),
-          )
-        ],
-      ),
-    );
-  }
 }

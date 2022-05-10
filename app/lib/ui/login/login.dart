@@ -2,24 +2,24 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:letsdrop/blocs/auth/auth_bloc.dart';
 import 'package:letsdrop/blocs/theme/theme_bloc.dart';
+import 'package:letsdrop/constants/assets.dart';
 import 'package:letsdrop/constants/routes.dart';
-import 'package:letsdrop/services/spotify_service.dart';
+import 'package:letsdrop/constants/strings.dart';
 import 'package:letsdrop/utils/addVerticalSpace.dart';
 import 'package:letsdrop/widgets/loading.dart';
 
 class Login extends StatelessWidget {
-
   const Login({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return BlocListener<AuthBloc, AuthState>(
       listener: (context, state) {
-
-        if(state is AuthFailed) {
-           ScaffoldMessenger.of(context)
-              ..removeCurrentSnackBar()
-              ..showSnackBar(const SnackBar(content: Text("Auth Failed")));
+        if (state is AuthFailed) {
+          ScaffoldMessenger.of(context)
+            ..removeCurrentSnackBar()
+            ..showSnackBar(const SnackBar(
+                content: Text(AppStrings.AuthenticationFailedMessage)));
         }
       },
       child: SafeArea(
@@ -29,7 +29,7 @@ class Login extends StatelessWidget {
             builder: (context, state) {
               if (state is AuthAuthenticated) {
                 Future.delayed(const Duration(seconds: 0), () {
-                  Navigator.pushNamed(context, AppRoutes.Home,
+                  Navigator.popAndPushNamed(context, AppRoutes.Home,
                       arguments: state.user);
                 });
 
@@ -60,7 +60,7 @@ class Login extends StatelessWidget {
             ], color: Colors.white, shape: BoxShape.circle),
             child: CircleAvatar(
               child: Image.asset(
-                "assets/images/spotify-logo.png",
+                AppAssets.LoginSpotifyLogo,
               ),
               radius: 80,
               backgroundColor: Theme.of(context).backgroundColor,
@@ -79,7 +79,7 @@ class Login extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.all(15.0),
                   child: Text(
-                    "LOG IN WITH SPOTIFY",
+                    AppStrings.LoginButton,
                     style: Theme.of(context).textTheme.button,
                   ),
                 )),

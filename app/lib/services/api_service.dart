@@ -1,20 +1,11 @@
+import 'package:letsdrop/constants/token.dart';
 import 'package:letsdrop/models/country.dart';
 import 'package:letsdrop/models/drop.dart';
 import 'package:letsdrop/services/graphql_service.dart';
 
-abstract class IApiService {
-  Future<List<Drop>> getDrops();
-
-  Future<List<Country>> getCountries();
-
-  Future<Drop> createDrop(Drop drop);
-
-  Future<Drop> deleteDrop(String id);
-}
-
-class ApiService extends IApiService {
+class ApiService {
   final GraphQlService _graphQlService =
-      GraphQlService("http://10.0.2.2:3000/graphql");
+      GraphQlService(AppTokens.Backend);
 
   ApiService();
 
