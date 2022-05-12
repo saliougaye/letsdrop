@@ -47,11 +47,22 @@ const dropsRepository = () => {
         return dropCreated;
     }
 
+    const pruneDrops = async (date: Date) : Promise<void> => {
+        
+        await DropModel.deleteMany({
+            dropDate: {
+                $lte: date
+            }
+        });
+        
+    }
+
     return {
         getDrops,
         getDrop,
         insertDrop,
-        deleteDrop
+        deleteDrop,
+        pruneDrops
     }
 }
 
