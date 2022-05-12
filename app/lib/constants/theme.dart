@@ -58,6 +58,7 @@ class AppThemes {
       indicatorColor: AppColors.greenBlue,
       floatingActionButtonTheme: const FloatingActionButtonThemeData(
         backgroundColor: AppColors.darkBlue,
+        foregroundColor: Colors.white
       ),
       highlightColor: AppColors.greenBlue,
       colorScheme: const ColorScheme.light(
@@ -116,6 +117,7 @@ class AppThemes {
       indicatorColor: AppColors.darkBlue,
       floatingActionButtonTheme: const FloatingActionButtonThemeData(
         backgroundColor: AppColors.darkShadeBlueMagenta,
+        foregroundColor: Colors.white
       ),
       highlightColor: AppColors.skyViolet,
       colorScheme: const ColorScheme.dark(
