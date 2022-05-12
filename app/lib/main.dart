@@ -16,30 +16,30 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:workmanager/workmanager.dart';
 
 
-void onCallbackDispatcher(ApiService apiService) {
-  Workmanager().executeTask((taskName, inputData) async {
-    FlutterLocalNotificationsPlugin flp = FlutterLocalNotificationsPlugin();
-    const android = AndroidInitializationSettings('@mipmap/ic_launcher');
-    const iOS = IOSInitializationSettings();
-    const initSetttings = InitializationSettings(android: android, iOS: iOS);
-    flp.initialize(initSetttings);
+// void onCallbackDispatcher(ApiService apiService) {
+//   Workmanager().executeTask((taskName, inputData) async {
+//     FlutterLocalNotificationsPlugin flp = FlutterLocalNotificationsPlugin();
+//     const android = AndroidInitializationSettings('@mipmap/ic_launcher');
+//     const iOS = IOSInitializationSettings();
+//     const initSetttings = InitializationSettings(android: android, iOS: iOS);
+//     flp.initialize(initSetttings);
 
-    try {
-      final drops = await apiService.getDrops();
+//     try {
+//       final drops = await apiService.getDrops();
 
-      final todayDrops =
-          drops.where((element) => element.dropDate == DateTime.now());
+//       final todayDrops =
+//           drops.where((element) => element.dropDate == DateTime.now());
 
-      if (todayDrops.isNotEmpty) {
-        showNotification(flp);
-      }
+//       if (todayDrops.isNotEmpty) {
+//         showNotification(flp);
+//       }
 
-      return Future.value(true);
-    } catch (e) {
-      return Future.value(false);
-    }
-  });
-}
+//       return Future.value(true);
+//     } catch (e) {
+//       return Future.value(false);
+//     }
+//   });
+// }
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -95,10 +95,10 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => ThemeBloc(sharedPreferences: sharedPreferences)),
         BlocProvider(
             create: (context) =>
-                DropsBloc(apiService: apiService)..add(LoadDrops())),
+                DropsBloc(apiService: apiService, spotifyService: spotifyService)..add(LoadDrops())),
         BlocProvider(
             create: (context) =>
-                CountriesBloc(apiService: apiService)..add(LoadCountries())),
+                CountriesBloc(apiService: apiService, spotifyService: spotifyService)..add(LoadCountries())),
         BlocProvider(
           create: (context) => AuthBloc(spotifyService: spotifyService)..add(AppLoaded()))
       ],

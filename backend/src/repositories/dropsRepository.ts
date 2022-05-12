@@ -1,14 +1,15 @@
-import { IDeleteDropProps } from '../interfaces/services/dropService'
-import ICreateDropProps from '../interfaces/services/dropService/ICreateDropProps';
 import DropModel from '../schema/drop';
 import Drop from '../models/drop';
-import IGetDropProps from '../interfaces/services/dropService/IGetDropProps';
 import DropInput from '../interfaces/dto/DropInput';
 
 const dropsRepository = () => {
 
-    const getDrops = async () : Promise<Drop[]> => {
-        const drops = await DropModel.find({});
+    const getDrops = async (user: string) : Promise<Drop[]> => {
+        const drops = await DropModel.find({
+            user: {
+                $eq: user
+            }
+        });
 
         return drops;
     }

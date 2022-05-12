@@ -9,8 +9,7 @@ class ApiService {
 
   ApiService();
 
-  @override
-  Future<Drop> createDrop(Drop drop) async {
+  Future<Drop> createDrop(String token, Drop drop) async {
     const String query = """
       mutation CreateDrop(\$drop: DropInput!){
         createDrop(drop: \$drop) {
@@ -33,7 +32,7 @@ class ApiService {
     """;
 
     final result = await _graphQlService
-        .mutation(query, variables: {'drop': drop.toJson()});
+        .mutation(query, token, variables: {'drop': drop.toJson()});
 
     if (result.hasException) {
       throw Exception(result.exception);
@@ -49,8 +48,7 @@ class ApiService {
     return dropCreated;
   }
 
-  @override
-  Future<Drop> deleteDrop(String id) async {
+  Future<Drop> deleteDrop(String token, String id) async {
     const String query = """
       mutation DeleteDrop(\$id: ID!){
         deleteDrop(id: \$id) {
@@ -72,7 +70,7 @@ class ApiService {
       }
     """;
 
-    final result = await _graphQlService.mutation(query, variables: {
+    final result = await _graphQlService.mutation(query, token, variables: {
       'id': id,
     });
 
@@ -90,8 +88,7 @@ class ApiService {
     return drop;
   }
 
-  @override
-  Future<List<Country>> getCountries() async {
+  Future<List<Country>> getCountries(String token) async {
     const String query = """
       query {
         countries {
@@ -102,7 +99,7 @@ class ApiService {
       }
     """;
   
-    final result = await _graphQlService.query(query);
+    final result = await _graphQlService.query(query, token);
 
     if (result.hasException) {
       throw Exception(result.exception);
@@ -119,11 +116,10 @@ class ApiService {
     return countries;
   }
 
-  @override
-  Future<List<Drop>> getDrops() async {
-    const String query = """
+  Future<List<Drop>> getDrops(String token, String user) async {
+    String query = """
       query {
-        drops {
+        drops(user: "$user") {
           id
           album
           dropDate
@@ -142,7 +138,7 @@ class ApiService {
       }
     """;
 
-    final result = await _graphQlService.query(query);
+    final result = await _graphQlService.query(query, token);
 
     if (result.hasException) {
       throw Exception(result.exception);
