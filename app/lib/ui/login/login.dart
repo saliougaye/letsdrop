@@ -48,9 +48,8 @@ class Login extends StatelessWidget {
     );
   }
 
-  Widget _loginWidget(BuildContext authContext) {
-    return BlocBuilder<ThemeBloc, ThemeState>(builder: (context, state) {
-      return Column(
+  Widget _loginWidget(BuildContext context) {
+    return Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Container(
@@ -69,7 +68,7 @@ class Login extends StatelessWidget {
           addVerticalSpace(20),
           InkWell(
             onTap: () async {
-              authContext.read<AuthBloc>().add(UserRequestLogin());
+              context.read<AuthBloc>().add(UserRequestLogin());
             },
             borderRadius: const BorderRadius.all(Radius.circular(15)),
             child: Container(
@@ -86,6 +85,5 @@ class Login extends StatelessWidget {
           )
         ],
       );
-    });
   }
 }

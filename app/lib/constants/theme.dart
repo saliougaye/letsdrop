@@ -41,7 +41,8 @@ class AppThemes {
         overline: TextStyle(
           color: AppColors.darkGreenBlue,
           fontFamily: AppFontFamily.proximaNova,
-          fontSize: 18
+          fontSize: 18,
+          fontWeight: FontWeight.w700
         ),
         button: TextStyle(
           color: AppColors.greenBlue,
@@ -59,6 +60,9 @@ class AppThemes {
         backgroundColor: AppColors.darkBlue,
       ),
       highlightColor: AppColors.greenBlue,
+      colorScheme: const ColorScheme.light(
+        secondary: AppColors.darkBlue
+      )
     ),
     AppTheme.dark: ThemeData(
       backgroundColor: AppColors.skyBlue,
@@ -96,6 +100,7 @@ class AppThemes {
           color: AppColors.darkShadeBlueMagenta,
           fontFamily: AppFontFamily.proximaNova,
           fontSize: 18,
+          fontWeight: FontWeight.w700
         ),
         button: TextStyle(
           color: AppColors.darkBlue,
@@ -113,6 +118,9 @@ class AppThemes {
         backgroundColor: AppColors.darkShadeBlueMagenta,
       ),
       highlightColor: AppColors.skyViolet,
+      colorScheme: const ColorScheme.dark(
+        secondary: AppColors.darkShadeBlueMagenta
+      )
     )
   };
 }
