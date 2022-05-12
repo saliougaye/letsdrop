@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
-import 'package:letsdrop/blocs/theme/theme_bloc.dart';
 import 'package:letsdrop/utils/addVerticalSpace.dart';
 
 class DropDateDivider extends StatelessWidget {
@@ -11,40 +9,36 @@ class DropDateDivider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ThemeBloc, ThemeState>(
-      builder: (context, state) {
-        return Column(
+    return Column(
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            Column(
               children: [
-                Column(
-                  children: [
-                    Text(
-                      DateTime.now().difference(date).inDays.abs() == 0
-                          ? "Today"
-                          : "${DateTime.now().difference(date).inDays.abs()} days left",
-                      style: Theme.of(context).textTheme.headline2,
-                    )
-                  ],
-                ),
-                Column(
-                  children: [
-                    Text(
-                      DateFormat(DateFormat.MONTH_WEEKDAY_DAY).format(date),
-                      style: Theme.of(context).textTheme.subtitle2,
-                    )
-                  ],
+                Text(
+                  DateTime.now().difference(date).inDays.abs() == 0
+                      ? "Today"
+                      : "${DateTime.now().difference(date).inDays.abs()} days left",
+                  style: Theme.of(context).textTheme.headline2,
                 )
               ],
             ),
-            Divider(
-              color: Theme.of(context).dividerColor,
-            ),
-            addVerticalSpace(10)
+            Column(
+              children: [
+                Text(
+                  DateFormat(DateFormat.MONTH_WEEKDAY_DAY).format(date),
+                  style: Theme.of(context).textTheme.subtitle2,
+                )
+              ],
+            )
           ],
-        );
-      },
+        ),
+        Divider(
+          color: Theme.of(context).dividerColor,
+        ),
+        addVerticalSpace(10)
+      ],
     );
   }
 }

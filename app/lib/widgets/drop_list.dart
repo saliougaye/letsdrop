@@ -37,11 +37,11 @@ class DropList extends StatelessWidget {
         builder: (context, state) {
           Widget widget2See;
           if (state is DropsLoadingFailed) {
-            widget2See = _loadErrorWidget();
+            widget2See = _loadErrorWidget(context);
           } else if (state is DeleteDropState) {
-            widget2See = _dropsList(state.drops);
+            widget2See = _dropsList(context, state.drops);
           } else if (state is DropsLoaded) {
-            widget2See = _dropsList(state.drops);
+            widget2See = _dropsList(context, state.drops);
           } else {
             widget2See = const Loading();
           }
@@ -58,39 +58,31 @@ class DropList extends StatelessWidget {
     );
   }
 
-  Widget _loadErrorWidget() {
-    return BlocBuilder<ThemeBloc, ThemeState>(
-      builder: (context, state) {
-        return Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              addVerticalSpace(10),
-              Text(
-                AppStrings.WarningEmoji,
-                style: Theme.of(context).textTheme.headline1,
-              ),
-              addVerticalSpace(10),
-              Text(
-                AppStrings.WarningMessageLoadDrops,
-                style: Theme.of(context).textTheme.headline2,
-              ),
-            ],
+  Widget _loadErrorWidget(BuildContext context) {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          addVerticalSpace(10),
+          Text(
+            AppStrings.WarningEmoji,
+            style: Theme.of(context).textTheme.headline1,
           ),
-        );
-      },
+          addVerticalSpace(10),
+          Text(
+            AppStrings.WarningMessageLoadDrops,
+            style: Theme.of(context).textTheme.headline2,
+          ),
+        ],
+      ),
     );
   }
 
-  Widget _dropsList(List<Drop> drops) {
+  Widget _dropsList(BuildContext context, List<Drop> drops) {
     if (drops.isEmpty) {
-      return BlocBuilder<ThemeBloc, ThemeState>(
-        builder: (context, state) {
-          return Text(
-            AppStrings.EmptyDropList,
-            style: Theme.of(context).textTheme.subtitle2,
-          );
-        },
+      return Text(
+        AppStrings.EmptyDropList,
+        style: Theme.of(context).textTheme.subtitle2,
       );
     }
 

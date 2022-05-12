@@ -23,6 +23,7 @@ class FlagInput extends StatelessWidget {
                 mode: Mode.BOTTOM_SHEET,
                 items: state.countries,
                 dropdownSearchDecoration: InputDecoration(
+                  contentPadding: const EdgeInsets.only(left: 10, right: 10),
                     focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(15),
                         borderSide: BorderSide(
@@ -53,10 +54,13 @@ class FlagInput extends StatelessWidget {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-                'Country',
-                style: Theme.of(context).textTheme.overline,
-              ),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 8.0),
+              child: Text(
+                  'Country',
+                  style: Theme.of(context).textTheme.overline,
+                ),
+            ),
             field
           ],
         );
@@ -77,7 +81,7 @@ class FlagInput extends StatelessWidget {
           ),
         ),
         Expanded(
-          flex: 4,
+          flex: 5,
           child: Text(
             item?.name ?? "",
             overflow: TextOverflow.ellipsis,

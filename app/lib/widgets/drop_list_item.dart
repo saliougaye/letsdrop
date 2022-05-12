@@ -17,113 +17,114 @@ class DropItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ThemeBloc, ThemeState>(
-      builder: (themeContext, state) {
-        return Container(
+    return Container(
           padding: const EdgeInsets.only(bottom: 22),
-          child: Dismissible(
-            key: Key(drop.id),
-            onDismissed: (direction) {
-              onDismiss(drop);
-            },
-            direction: DismissDirection.endToStart,
-            background: Container(
-              alignment: AlignmentDirectional.centerEnd,
-              color: Colors.red,
-              child: const Padding(
-                padding: EdgeInsets.fromLTRB(0.0, 0.0, 10.0, 0.0),
-                child: Icon(
-                  Icons.delete,
-                  color: Colors.white,
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(8.0),
+            child: Dismissible(
+              key: Key(drop.id),
+              onDismissed: (direction) {
+                onDismiss(drop);
+              },
+              direction: DismissDirection.endToStart,
+              background: Container(
+                alignment: AlignmentDirectional.centerEnd,
+                
+                child: const Padding(
+                  padding: EdgeInsets.fromLTRB(0.0, 0.0, 10.0, 0.0),
+                  child: Icon(
+                    Icons.delete,
+                    color: Colors.white,
+                  ),
                 ),
+                color: Colors.red,
+                
               ),
-            ),
-            child: Container(
-              decoration: BoxDecoration(
+              child: Container(
+                decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(8.0),
-                  color: Theme.of(themeContext).cardColor,
+                  color: Theme.of(context).cardColor,
                   boxShadow: [
                     BoxShadow(
-                        color: Theme.of(themeContext).cardColor,
+                        color: Theme.of(context).cardColor,
                         spreadRadius: 5,
                         blurRadius: 7,
                         offset: const Offset(0, 3)
                       )
                   ]),
-              child: Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Center(
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      // image
-                      SizedBox(
-                        width: 65,
-                        height: 65,
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(8),
-                          child: Image.network(
-                            _getAlbumImage(),
-                            fit: BoxFit.fill,
-                            scale: 0.8,
-                            loadingBuilder: (context, child, loadingProgress) {
-                              if (loadingProgress == null) {
-                                return child;
-                              }
-
-                              return const Skeleton(
-                                  isLoading: true,
-                                  skeleton: SkeletonAvatar(),
-                                  child: SkeletonAvatar());
-                            },
+                child: Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Center(
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        // image
+                        SizedBox(
+                          width: 65,
+                          height: 65,
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(8),
+                            child: Image.network(
+                              _getAlbumImage(),
+                              fit: BoxFit.fill,
+                              scale: 0.8,
+                              loadingBuilder: (context, child, loadingProgress) {
+                                if (loadingProgress == null) {
+                                  return child;
+                                }
+          
+                                return const Skeleton(
+                                    isLoading: true,
+                                    skeleton: SkeletonAvatar(),
+                                    child: SkeletonAvatar());
+                              },
+                            ),
                           ),
                         ),
-                      ),
-
-                      // album title and artists links
-                      Expanded(
-                        flex: 2,
-                        child: Container(
-                            padding: const EdgeInsets.only(left: 10, right: 20),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(bottom: 5.0),
-                                  child: Text(
-                                    drop.album,
-                                    style: Theme.of(themeContext)
-                                        .textTheme
-                                        .headline3,
+          
+                        // album title and artists links
+                        Expanded(
+                          flex: 2,
+                          child: Container(
+                              padding: const EdgeInsets.only(left: 10, right: 20),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(bottom: 5.0),
+                                    child: Text(
+                                      drop.album,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .headline3,
+                                    ),
                                   ),
-                                ),
-                                RichText(
-                                    text: TextSpan(
-                                        children: _buildArtistsNames(
-                                          drop.artists, 
-                                          Theme.of(themeContext).textTheme.subtitle1, 
-                                          context
-                                        )
-                                    )
-                                )
-                              ],
-                            )),
-                      ),
-                      // flag
-                      Text(
-                        drop.country.flag ?? "",
-                        style: const TextStyle(fontSize: 30),
-                      ),
-                    ],
+                                  RichText(
+                                      text: TextSpan(
+                                          children: _buildArtistsNames(
+                                            drop.artists, 
+                                            Theme.of(context).textTheme.subtitle1, 
+                                            context
+                                          )
+                                      )
+                                  )
+                                ],
+                              )),
+                        ),
+                        // flag
+                        Text(
+                          drop.country.flag ?? "",
+                          style: const TextStyle(fontSize: 30),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
             ),
           ),
         );
-      },
-    );
   }
 
   List<TextSpan> _buildArtistsNames(
