@@ -12,34 +12,51 @@ import 'package:letsdrop/services/spotify_service.dart';
 import 'package:letsdrop/ui/add_drop/add_drop.dart';
 import 'package:letsdrop/ui/home/home.dart';
 import 'package:letsdrop/ui/login/login.dart';
+import 'package:letsdrop/utils/date_comparison.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:workmanager/workmanager.dart';
 
 
-// void onCallbackDispatcher(ApiService apiService) {
-//   Workmanager().executeTask((taskName, inputData) async {
-//     FlutterLocalNotificationsPlugin flp = FlutterLocalNotificationsPlugin();
-//     const android = AndroidInitializationSettings('@mipmap/ic_launcher');
-//     const iOS = IOSInitializationSettings();
-//     const initSetttings = InitializationSettings(android: android, iOS: iOS);
-//     flp.initialize(initSetttings);
+void onCallbackDispatcher() {
+  Workmanager().executeTask((taskName, inputData) async {
+    final apiService = ApiService();
+    final spotifyService = SpotifyService();
+    final flp = FlutterLocalNotificationsPlugin();
 
-//     try {
-//       final drops = await apiService.getDrops();
 
-//       final todayDrops =
-//           drops.where((element) => element.dropDate == DateTime.now());
+    const android = AndroidInitializationSettings('@mipmap/ic_launcher');
+    const iOS = IOSInitializationSettings();
+    const initSetttings = InitializationSettings(android: android, iOS: iOS);
 
-//       if (todayDrops.isNotEmpty) {
-//         showNotification(flp);
-//       }
 
-//       return Future.value(true);
-//     } catch (e) {
-//       return Future.value(false);
-//     }
-//   });
-// }
+    await flp.initialize(initSetttings);
+
+    try {
+
+      final isLogged = await spotifyService.isLogged();
+
+      if(!isLogged) {
+        throw Exception('Not logged');
+      }
+ 
+      final token = await spotifyService.getToken();
+      final user = await spotifyService.getLoggedUser();
+
+      final drops = await apiService.getDrops(token, user.id);
+
+      final todayDrops =
+          drops.where((element) => isToday(element.dropDate));
+
+      if (todayDrops.isNotEmpty) {
+        await showNotification(flp);
+      }
+
+      return Future.value(true);
+    } catch (e) {
+      return Future.value(false);
+    }
+  });
+}
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -48,13 +65,13 @@ Future<void> main() async {
   final spotifyService = SpotifyService();
   final sharedPreferences = await SharedPreferences.getInstance();
   
-  // await Workmanager().initialize(onCallbackDispatcher,
-  //     isInDebugMode: false);
+  await Workmanager().initialize(onCallbackDispatcher,
+      isInDebugMode: false);
 
-  // await Workmanager().registerPeriodicTask(
-  //     "lets_drop_notification_worker", "lets_drop_notification_worker_periodic",
-  //     frequency: const Duration(minutes: 15),
-  //     initialDelay: const Duration(seconds: 1));
+  await Workmanager().registerPeriodicTask(
+      "lets_drop_notification_worker", "lets_drop_notification_worker_periodic",
+      frequency: const Duration(minutes: 15),
+      initialDelay: const Duration(seconds: 1));
 
   runApp(MyApp(
     apiService: apiService,
@@ -65,7 +82,7 @@ Future<void> main() async {
 
 
 
-showNotification(FlutterLocalNotificationsPlugin flp) async {
+Future<void> showNotification(FlutterLocalNotificationsPlugin flp) async {
   const android = AndroidNotificationDetails('letsdropchannel', 'lets drop',
       channelDescription: 'LetsDrop Notification',
       priority: Priority.high,

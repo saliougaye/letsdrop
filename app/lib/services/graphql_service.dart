@@ -52,7 +52,10 @@ class GraphQlService {
       cache: GraphQLCache()
     );
 
-    final result = await client.mutate(options).timeout(const Duration(seconds: 20));
+
+    final result = await client
+          .mutate(options)
+          .timeout(const Duration(seconds: 20));
 
     return result;
   }
