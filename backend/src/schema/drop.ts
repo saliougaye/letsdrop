@@ -56,6 +56,10 @@ const dropSchema = new Schema<Drop>({
         required: true,
         trim: true
     },
+    user: {
+        type: MongoString,
+        required: true,
+    },
     dropDate: {
         type: MongoDate,
         required: true,

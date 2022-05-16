@@ -10,4 +10,6 @@ class AppStrings {
   static const String WarningMessageLoadDrops = "Sorry but can't load the drops.\n Retry Later";
 
   static const String EmptyDropList = "No drop saved. Try to add one";
+
+  static const String ThemeSharedPreferenceKey = "letsdrop_theme";
 }

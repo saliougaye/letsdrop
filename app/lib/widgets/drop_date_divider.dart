@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:letsdrop/blocs/theme/theme_bloc.dart';
 import 'package:letsdrop/utils/addVerticalSpace.dart';
+import 'package:letsdrop/utils/date_comparison.dart';
 
 class DropDateDivider extends StatelessWidget {
   final DateTime date;
@@ -21,9 +22,9 @@ class DropDateDivider extends StatelessWidget {
                 Column(
                   children: [
                     Text(
-                      DateTime.now().difference(date).inDays.abs() == 0
+                      isToday(date)
                           ? "Today"
-                          : "${DateTime.now().difference(date).inDays.abs()} days left",
+                          : "${dayDifference(date, DateTime.now())} days left",
                       style: Theme.of(context).textTheme.headline2,
                     )
                   ],

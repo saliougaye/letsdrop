@@ -27,9 +27,12 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     final userLogged = await spotifyService.isLogged();
 
 
-    if(userLogged != null) {
+    if(userLogged) {
+
+      final user = await spotifyService.getLoggedUser();
+
       emit(
-        AuthAuthenticated(user: userLogged)
+        AuthAuthenticated(user: user)
       ); 
     } else {
       emit(
@@ -38,7 +41,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     }
     } catch (e) {
       emit(
-        const AuthFailed(message: "An unknown error occured") // TODO fix
+        const AuthFailed(message: "An unknown error occured")
       );
     }
     
@@ -63,7 +66,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       );
     } catch (e) {
       emit(
-        const AuthFailed(message: "An unknown error occured") // TODO fix
+        const AuthFailed(message: "An unknown error occured") 
       );
     }
   }

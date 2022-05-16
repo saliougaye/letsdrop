@@ -1,39 +1,57 @@
 import 'package:graphql_flutter/graphql_flutter.dart';
 
 class GraphQlService {
-  final GraphQLClient _client;
 
-  GraphQlService._(GraphQLClient client) : _client = client;
+  final String url;
+
+  GraphQlService._({ required this.url }) ;
 
   factory GraphQlService(String url) {
-    HttpLink link = HttpLink(url);
 
-    GraphQLClient client = GraphQLClient(
-      link: link, 
-      cache: GraphQLCache()
-    );
-
-    return GraphQlService._(client);
+    return GraphQlService._(url: url);
   }
 
   Future<QueryResult> query(
-      String query, { Map<String, dynamic>? variables }) async {
+      String query, String token, { Map<String, dynamic>? variables }) async {
     QueryOptions options = QueryOptions(
       document: gql(query), 
       variables: variables ?? {}, 
-      fetchPolicy: FetchPolicy.networkOnly);
+      fetchPolicy: FetchPolicy.noCache);
 
-    final result = await _client.query(options);
+    final client = GraphQLClient(
+      link: HttpLink(
+        url, 
+        defaultHeaders: {
+          "authorization": token
+        },
+      ), 
+      cache: GraphQLCache(),
+    );
+
+    final result = await client.query(options);
+
+    
 
     return result;
   }
 
   Future<QueryResult> mutation(
-      String query, { Map<String, dynamic>? variables }) async {
+      String query, String token, { Map<String, dynamic>? variables }) async {
     MutationOptions options =
         MutationOptions(document: gql(query), variables: variables ?? {});
 
-    final result = await _client.mutate(options).timeout(const Duration(seconds: 5));
+      
+    final client = GraphQLClient(
+      link: HttpLink(
+        url, 
+        defaultHeaders: {
+          "authorization": token
+      }), 
+      cache: GraphQLCache()
+    );
+
+
+    final result = await client.mutate(options);
 
     return result;
   }
