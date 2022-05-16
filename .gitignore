@@ -49,7 +49,7 @@ docs/
 /app/android/app/release
 
 
-.env
+*.env
 
 backend/node_modules
 accesstoken/
