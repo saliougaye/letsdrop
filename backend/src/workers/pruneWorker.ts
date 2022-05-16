@@ -6,7 +6,6 @@ const pruneQueueName = 'prune-drops-queue'
 const pruneQueue = new Queue<any>(pruneQueueName);
 
 pruneQueue.process(async (_, done) => {
-    console.log('Deleting old drops');
 
     try {
         await dropsService.pruneDrops();
