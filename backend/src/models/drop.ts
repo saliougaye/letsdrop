@@ -3,7 +3,6 @@ import Country from "./country";
 
 interface Drop {
     _id: string,
-    user: string,
     album: string,
     dropDate: Date,
     country: Country,

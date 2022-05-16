@@ -12,43 +12,25 @@ import 'package:letsdrop/services/spotify_service.dart';
 import 'package:letsdrop/ui/add_drop/add_drop.dart';
 import 'package:letsdrop/ui/home/home.dart';
 import 'package:letsdrop/ui/login/login.dart';
-import 'package:letsdrop/utils/date_comparison.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:workmanager/workmanager.dart';
 
 
-void onCallbackDispatcher() {
+void onCallbackDispatcher(ApiService apiService) {
   Workmanager().executeTask((taskName, inputData) async {
-    final apiService = ApiService();
-    final spotifyService = SpotifyService();
-    final flp = FlutterLocalNotificationsPlugin();
-
-
+    FlutterLocalNotificationsPlugin flp = FlutterLocalNotificationsPlugin();
     const android = AndroidInitializationSettings('@mipmap/ic_launcher');
     const iOS = IOSInitializationSettings();
     const initSetttings = InitializationSettings(android: android, iOS: iOS);
-
-
-    await flp.initialize(initSetttings);
+    flp.initialize(initSetttings);
 
     try {
-
-      final isLogged = await spotifyService.isLogged();
-
-      if(!isLogged) {
-        throw Exception('Not logged');
-      }
- 
-      final token = await spotifyService.getToken();
-      final user = await spotifyService.getLoggedUser();
-
-      final drops = await apiService.getDrops(token, user.id);
+      final drops = await apiService.getDrops();
 
       final todayDrops =
-          drops.where((element) => isToday(element.dropDate));
+          drops.where((element) => element.dropDate == DateTime.now());
 
       if (todayDrops.isNotEmpty) {
-        await showNotification(flp);
+        showNotification(flp);
       }
 
       return Future.value(true);
@@ -63,26 +45,25 @@ Future<void> main() async {
 
   final apiService = ApiService();
   final spotifyService = SpotifyService();
-  final sharedPreferences = await SharedPreferences.getInstance();
-  
-  await Workmanager().initialize(onCallbackDispatcher,
-      isInDebugMode: false);
 
-  await Workmanager().registerPeriodicTask(
-      "lets_drop_notification_worker", "lets_drop_notification_worker_periodic",
-      frequency: const Duration(minutes: 15),
-      initialDelay: const Duration(seconds: 1));
+  
+  // await Workmanager().initialize(onCallbackDispatcher,
+  //     isInDebugMode: false);
+
+  // await Workmanager().registerPeriodicTask(
+  //     "lets_drop_notification_worker", "lets_drop_notification_worker_periodic",
+  //     frequency: const Duration(minutes: 15),
+  //     initialDelay: const Duration(seconds: 1));
 
   runApp(MyApp(
     apiService: apiService,
     spotifyService: spotifyService,
-    sharedPreferences: sharedPreferences,
   ));
 }
 
 
 
-Future<void> showNotification(FlutterLocalNotificationsPlugin flp) async {
+showNotification(FlutterLocalNotificationsPlugin flp) async {
   const android = AndroidNotificationDetails('letsdropchannel', 'lets drop',
       channelDescription: 'LetsDrop Notification',
       priority: Priority.high,
@@ -99,23 +80,22 @@ Future<void> showNotification(FlutterLocalNotificationsPlugin flp) async {
 }
 
 class MyApp extends StatelessWidget {
-  final ApiService apiService;
+  final ApiService apiService; //  = ApiService();
   final SpotifyService spotifyService;
-  final SharedPreferences sharedPreferences;
 
-  const MyApp({Key? key, required this.apiService, required this.spotifyService, required this.sharedPreferences}) : super(key: key);
+  MyApp({Key? key, required this.apiService, required this.spotifyService}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(create: (context) => ThemeBloc(sharedPreferences: sharedPreferences)),
+        BlocProvider(create: (context) => ThemeBloc()),
         BlocProvider(
             create: (context) =>
-                DropsBloc(apiService: apiService, spotifyService: spotifyService)..add(LoadDrops())),
+                DropsBloc(apiService: apiService)..add(LoadDrops())),
         BlocProvider(
             create: (context) =>
-                CountriesBloc(apiService: apiService, spotifyService: spotifyService)..add(LoadCountries())),
+                CountriesBloc(apiService: apiService)..add(LoadCountries())),
         BlocProvider(
           create: (context) => AuthBloc(spotifyService: spotifyService)..add(AppLoaded()))
       ],
@@ -144,7 +124,7 @@ class MyApp extends StatelessWidget {
           },
           routes: {
             AppRoutes.Add: (context) => const AddNewDropScreen(),
-            AppRoutes.Login: (context) => const Login()
+            AppRoutes.Login: (context) => Login()
           },
         );
       }),

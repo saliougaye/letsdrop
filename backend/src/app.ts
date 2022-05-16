@@ -2,7 +2,7 @@ import dotenv from 'dotenv';
 import fastify, { FastifyInstance } from "fastify";
 import { Server, IncomingMessage, ServerResponse } from 'http';
 import mercurius from 'mercurius';
-import { preHandler } from './hooks/index';
+
 
 import { schema, resolvers } from './graphql/index';
 
@@ -13,7 +13,6 @@ const app : FastifyInstance<Server, IncomingMessage, ServerResponse> = fastify({
     logger: false
 });
 
-app.addHook('preHandler', preHandler);
 
 app.register(mercurius, {
     schema: schema,

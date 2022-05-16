@@ -4,6 +4,7 @@ import 'package:letsdrop/models/user.dart';
 import 'package:letsdrop/utils/addVerticalSpace.dart';
 import 'package:letsdrop/widgets/appbar.dart';
 import 'package:letsdrop/widgets/drop_list.dart';
+import 'package:letsdrop/widgets/text_divider.dart';
 
 class Home extends StatelessWidget {
   final SpotifyUser user;
