@@ -36,7 +36,6 @@ const schema = gql`
     }
 
     input DropInput {
-        user: String
         album: String
         dropDate: String
         country: CountryInput
@@ -45,7 +44,7 @@ const schema = gql`
 
     type Query {
         countries: [Country!]!
-        drops(user: String!): [Drop!]!
+        drops: [Drop!]!
     }
 
     type Mutation {

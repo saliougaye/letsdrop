@@ -1,13 +1,22 @@
+Endpoint Used: 
+- [Countries](https://restcountries.com/#api-endpoints-v3-name)
+- [Spotify](https://developer.spotify.com/documentation/web-api/reference/#/)
+
+
 To Do:
 - Backend
-    - Deploy
+    - Add Users with spotify Ids
+    - Security 
 - App:
     - UI
         - Home Page  
             - Fix RefreshIndicator when 0 element
+        - System Widget
+            - Use Platform Specific Widget
         - Beautify UI
-    - Services
-        - Fix double insert of drops (double request by graphql service, why?)
+        - Save on shared preferences last theme
+    - System
+        - Fix Notification
 
 
     
