@@ -81,9 +81,16 @@ class DropList extends StatelessWidget {
 
   Widget _dropsList(BuildContext context, List<Drop> drops) {
     if (drops.isEmpty) {
-      return Text(
-        AppStrings.EmptyDropList,
-        style: Theme.of(context).textTheme.subtitle2,
+      return SingleChildScrollView(
+        physics: const AlwaysScrollableScrollPhysics(),
+        child: SizedBox(
+          height: 300,
+          child: Text(
+            AppStrings.EmptyDropList,
+            style: Theme.of(context).textTheme.subtitle2,
+            textAlign: TextAlign.center,
+          ),
+        ),
       );
     }
 
