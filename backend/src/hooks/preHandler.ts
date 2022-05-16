@@ -1,12 +1,11 @@
 import axios from "axios";
 import { FastifyReply, FastifyRequest, HookHandlerDoneFunction } from "fastify";
 
-const preHandler = async (req: FastifyRequest, reply: FastifyReply, done: HookHandlerDoneFunction) => {
+const preHandler = async (req: FastifyRequest, reply: FastifyReply) => {
 
     if(req.headers.authorization == null) {
-        reply.code(401).send();
-        done();
-        return;
+        reply.code(401)
+        return reply;
     }
 
 
@@ -18,20 +17,15 @@ const preHandler = async (req: FastifyRequest, reply: FastifyReply, done: HookHa
         });    
 
         if(res.status == 401) {
-            reply.code(401).send();
-            done();
-            return;
+            reply.code(401);
+            return reply;
         }
 
     } catch (error) {
-        reply.code(500).send();
-        done();
-        return;
+        reply.code(500);
+        return reply;
     }
     
-
-
-    done();
 }
 
 export default preHandler;
