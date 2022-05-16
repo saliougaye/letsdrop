@@ -1,10 +1,9 @@
 import Queue from "bull";
-import config from '../utils/config';
 import dropsService from "../services/dropsService";
 
 const pruneQueueName = 'prune-drops-queue'
 
-const pruneQueue = new Queue<any>(pruneQueueName, config.redis);
+const pruneQueue = new Queue<any>(pruneQueueName);
 
 pruneQueue.process(async (_, done) => {
     console.log('Deleting old drops');
@@ -27,7 +26,7 @@ const instantiatePruneWorker = () => {
 
     pruneQueue.add({}, {
         repeat: {
-            cron: '* 0 * * *'
+            cron: '0 0 * * *'
         }
     });
 
