@@ -6,6 +6,7 @@ import 'package:letsdrop/blocs/theme/theme_bloc.dart';
 import 'package:letsdrop/constants/strings.dart';
 import 'package:letsdrop/models/drop.dart';
 import 'package:letsdrop/utils/addVerticalSpace.dart';
+import 'package:letsdrop/utils/date_comparison.dart';
 import 'package:letsdrop/widgets/drop_date_divider.dart';
 import 'package:letsdrop/widgets/drop_list_item.dart';
 import 'package:letsdrop/widgets/loading.dart';
@@ -88,7 +89,7 @@ class DropList extends StatelessWidget {
 
     return GroupedListView<Drop, DateTime>(
       elements: drops,
-      groupBy: (element) => element.dropDate,
+      groupBy: (element) => element.dropDate, 
       itemBuilder: (context, element) => DropItem(
         drop: element,
         onDismiss: (drop) {

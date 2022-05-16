@@ -4,12 +4,14 @@ import IGetDropProps from '../interfaces/services/dropService/IGetDropProps';
 import dropsRepository from '../repositories/dropsRepository';
 import DropOutput from '../interfaces/dto/DropOutput';
 import { createDropOutput } from '../utils/factories/createDropOutput';
+import IGetDropsProps from '../interfaces/services/dropService/IGetDropsProps';
 import moment from 'moment';
+
 
 const dropsService = () => {
 
-    const getDrops = async () : Promise<DropOutput[]> => {
-        const drops = await dropsRepository.getDrops();
+    const getDrops = async (props: IGetDropsProps) : Promise<DropOutput[]> => {
+        const drops = await dropsRepository.getDrops(props.user);
 
         const dropsOutput = drops.map(el => createDropOutput(el));
 

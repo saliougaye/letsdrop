@@ -5,7 +5,6 @@ import 'package:letsdrop/utils/addVerticalSpace.dart';
 import 'package:letsdrop/widgets/appbar.dart';
 import 'package:letsdrop/widgets/drop_list.dart';
 
-
 class Home extends StatelessWidget {
   final SpotifyUser user;
   const Home({Key? key, required this.user}) : super(key: key);

@@ -1,5 +1,6 @@
 interface IGetDropProps{
-    id: string
+    id: string,
+    user: string
 }
 
 export default IGetDropProps;

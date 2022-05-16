@@ -11,7 +11,7 @@ class LoadDrops extends DropsEvent {
 }
 
 class AddDrop extends DropsEvent {
-  final Drop drop;
+  final DropInput drop;
 
   const AddDrop({ required this.drop });
 

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:letsdrop/blocs/drops/drops_bloc.dart';
+import 'package:letsdrop/blocs/theme/theme_bloc.dart';
+import 'package:letsdrop/dto/drop_input.dart';
 import 'package:letsdrop/models/spotify_artist.dart';
 import 'package:letsdrop/models/country.dart';
 import 'package:letsdrop/models/drop.dart';
@@ -111,7 +113,7 @@ class _AddNewDropScreenState extends State<AddNewDropScreen> {
 
 
       context.read<DropsBloc>().add(AddDrop(
-          drop: Drop(
+          drop: DropInput(
               id: "",
               album: formAlbumName!,
               dropDate: formDate,

@@ -1,8 +1,6 @@
 import { IResolvers } from "mercurius";
 import DropOutput from "../interfaces/dto/DropOutput";
-import Artist from "../models/artist";
 import Country from "../models/country";
-import Drop from "../models/drop";
 import countryService from "../services/countryService";
 import dropsService from "../services/dropsService";
 
@@ -12,7 +10,9 @@ const resolvers : IResolvers = {
             return countryService.countries({});
         },
         drops: (_, args, ctx, info) : Promise<DropOutput[]> => {
-            return dropsService.getDrops();
+            return dropsService.getDrops({
+                user: args.user
+            });
         },
     },
     Mutation: {
@@ -23,6 +23,7 @@ const resolvers : IResolvers = {
             return dropsService.insertDrop({
                 drop: {
                     album: drop.album,
+                    user: drop.user,
                     dropDate: drop.dropDate,
                     country: drop.country,
                     artists: drop.artists
