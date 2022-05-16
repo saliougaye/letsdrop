@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:letsdrop/blocs/theme/theme_bloc.dart';
-import 'package:letsdrop/constants/colors.dart';
 import 'package:letsdrop/constants/theme.dart';
-import 'package:letsdrop/utils/addVerticalSpace.dart';
 
 class Appbar extends StatelessWidget {
   final String? name;

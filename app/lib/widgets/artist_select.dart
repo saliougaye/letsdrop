@@ -21,122 +21,120 @@ class ArtistSelect extends StatelessWidget {
       required this.fetchArtist,
       required this.index,
       required this.removeInput,
-      required this.onSave
-      })
+      required this.onSave})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ThemeBloc, ThemeState>(
-      builder: (context, state) {
-        return Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Artist',
-                    style: Theme.of(context).textTheme.overline,
-                  ),
-                  DropdownSearch<SpotifyArtist>(
-                    mode: Mode.BOTTOM_SHEET,
-                    dropdownSearchDecoration: InputDecoration(
-                      focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(15),
-                          borderSide:
-                              BorderSide(color: Theme.of(context).cardColor)),
-                      enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(15),
-                          borderSide:
-                              BorderSide(color: Theme.of(context).cardColor)),
-                    ),
-                    itemAsString: (item) => item?.name ?? "",
-                    onChanged: print,
-                    showSearchBox: true,
-                    showClearButton: true,
-                    showSelectedItems: true,
-                    compareFn: (item, selectedItem) {
-                      return item?.id == selectedItem?.id;
-                    },
-                    dropdownBuilder: _artistDropdownItem,
-                    onFind: (text) async {
-
-                     if (text == null || text == "") return [];
-
-                     return fetchArtist(text);
-
-                    },
-                    isFilteredOnline: true,
-                    validator: (value) => index == 0 && value == null ? "Please select at least one artist" : null,
-                    onSaved: onSave,
-                  )
-                ],
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Expanded(
+          flex: 5,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(bottom: 8.0),
+                child: Text(
+                  'Artist',
+                  style: Theme.of(context).textTheme.overline,
+                ),
               ),
-            ),
-            (() {
-              if (index != 0) {
-                return IconButton(
-                    onPressed: () {
-                      removeInput(index);
-                    },
-                    icon: const Icon(
-                      Icons.delete,
-                      color: Colors.red,
-                      size: 40,
-                    ),
-                    );
-              }
+              DropdownSearch<SpotifyArtist>(
+                mode: Mode.BOTTOM_SHEET,
+                dropdownSearchDecoration: InputDecoration(
+                  contentPadding: EdgeInsets.zero,
+                  focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(15),
+                      borderSide:
+                          BorderSide(color: Theme.of(context).cardColor)),
+                  enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(15),
+                      borderSide:
+                          BorderSide(color: Theme.of(context).cardColor)),
+                ),
+                itemAsString: (item) => item?.name ?? "",
+                onChanged: print,
+                showSearchBox: true,
+                showClearButton: true,
+                showSelectedItems: true,
+                compareFn: (item, selectedItem) {
+                  return item?.id == selectedItem?.id;
+                },
+                dropdownBuilder: _artistDropdownItem,
+                onFind: (text) async {
+                  if (text == null || text == "") return [];
 
-              return addVerticalSpace(0);
-            }())
-          ],
-        );
-      },
+                  return fetchArtist(text);
+                },
+                isFilteredOnline: true,
+                validator: (value) => index == 0 && value == null
+                    ? "Please select at least one artist"
+                    : null,
+                onSaved: onSave,
+              )
+            ],
+          ),
+        ),
+        (() {
+          if (index != 0) {
+            return IconButton(
+              padding: const EdgeInsets.only(top: 15),
+              onPressed: () {
+                removeInput(index);
+              },
+              icon: const Icon(
+                Icons.delete,
+                color: Colors.red,
+                size: 30,
+              ),
+            );
+          }
+
+          return SizedBox(width: 45,);
+        }())
+      ],
     );
   }
 
   Widget _artistDropdownItem(BuildContext context, SpotifyArtist? item) {
-
-    if(item == null) {
+    if (item == null) {
       return Container();
     }
 
     return Container(
-      height: 38,
       child: Row(
         children: [
           Expanded(
             flex: 1,
             child: ClipRRect(
-                borderRadius: BorderRadius.circular(8),
-                child: Image.network(
-                  _getArtistImage(item),
-                  fit: BoxFit.fill,
-                  scale: 0.8,
-                  loadingBuilder: (context, child, loadingProgress) {
-                    if (loadingProgress == null) {
-                      return child;
-                    }
+              borderRadius: BorderRadius.circular(8),
+              child: Image.network(
+                _getArtistImage(item),
+                fit: BoxFit.fitHeight,
+                scale: 0.8,
+                loadingBuilder: (context, child, loadingProgress) {
+                  if (loadingProgress == null) {
+                    return child;
+                  }
 
-                    return const Skeleton(
-                        isLoading: true,
-                        skeleton: SkeletonAvatar(),
-                        child: SkeletonAvatar());
-                  },
-                ),
+                  return const Skeleton(
+                      isLoading: true,
+                      skeleton: SkeletonAvatar(),
+                      child: SkeletonAvatar());
+                },
               ),
-          ),
-          const Spacer(flex: 1,),
-          Expanded(
-            flex: 4,
-            child: Text(
-              item.name,
-              overflow: TextOverflow.ellipsis,
-              style: Theme.of(context).textTheme.headline2
             ),
+          ),
+          SizedBox(width: 20,),
+          Expanded(
+            flex: 3,
+            child: Text(item.name,
+                overflow: TextOverflow.ellipsis,
+                style: Theme.of(context).textTheme.headline2),
           )
         ],
       ),
@@ -144,8 +142,6 @@ class ArtistSelect extends StatelessWidget {
   }
 
   String _getArtistImage(SpotifyArtist? artist) {
-
     return artist?.image ?? AppAssets.NoAlbumImage;
-
   }
 }

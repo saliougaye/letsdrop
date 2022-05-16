@@ -1,7 +1,8 @@
 import IConfig from "../interfaces/IConfig";
 
 const envs = [
-    "DATABASE_URL"
+    "DATABASE_URL",
+    "REDIS_URL"
 ];
 
 envs.forEach(el => {
@@ -11,7 +12,8 @@ envs.forEach(el => {
 })
 
 const config : IConfig = {
-    databaseUrl: process.env.DATABASE_URL!
+    databaseUrl: process.env.DATABASE_URL!,
+    redis: process.env.REDIS_URL!
 }
 
 export default config;

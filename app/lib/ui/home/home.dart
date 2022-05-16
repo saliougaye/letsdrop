@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:letsdrop/blocs/theme/theme_bloc.dart';
 import 'package:letsdrop/constants/routes.dart';
 import 'package:letsdrop/models/user.dart';
 import 'package:letsdrop/utils/addVerticalSpace.dart';
@@ -13,11 +11,9 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ThemeBloc, ThemeState>(
-      builder: (themeContext, state) {
-        return SafeArea(
+    return SafeArea(
           child: Scaffold(
-            backgroundColor: Theme.of(themeContext).backgroundColor,
+            backgroundColor: Theme.of(context).backgroundColor,
             body: SingleChildScrollView(
               child: Container(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -28,7 +24,7 @@ class Home extends StatelessWidget {
                     addVerticalSpace(10),
                     Text(
                        "${_getAppBarGreeting()} ${user.name}",
-                      style: Theme.of(themeContext).textTheme.headline1,
+                      style: Theme.of(context).textTheme.headline1,
                     ),
                     addVerticalSpace(20),
                     const DropList(),
@@ -44,8 +40,6 @@ class Home extends StatelessWidget {
             ),
           ),
         );
-      },
-    );
   }
 
 

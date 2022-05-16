@@ -5,6 +5,8 @@ import dropsRepository from '../repositories/dropsRepository';
 import DropOutput from '../interfaces/dto/DropOutput';
 import { createDropOutput } from '../utils/factories/createDropOutput';
 import IGetDropsProps from '../interfaces/services/dropService/IGetDropsProps';
+import moment from 'moment';
+
 
 const dropsService = () => {
 
@@ -48,11 +50,20 @@ const dropsService = () => {
         return createDropOutput(dropCreated);
     }
 
+    const pruneDrops = async () : Promise<void> => {
+
+        const weekAgoDate = moment().subtract(7, 'days');
+
+        await dropsRepository.pruneDrops(weekAgoDate.toDate());
+
+    }
+
     return {
         getDrops,
         getDrop,
         insertDrop,
-        deleteDrop
+        deleteDrop,
+        pruneDrops
     }
 }
 

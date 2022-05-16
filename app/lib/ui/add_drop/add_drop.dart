@@ -77,10 +77,8 @@ class _AddNewDropScreenState extends State<AddNewDropScreen> {
     );
   }
 
-  BlocBuilder<ThemeBloc, ThemeState> _addDropWidget(BuildContext dropsContext) {
-    return BlocBuilder<ThemeBloc, ThemeState>(
-      builder: (context, state) {
-        return Scaffold(
+  Widget _addDropWidget(BuildContext dropsContext) {
+    return Scaffold(
           backgroundColor: Theme.of(context).backgroundColor,
           body: Padding(
             padding: const EdgeInsets.only(top: 30, right: 20, left: 20),
@@ -107,8 +105,6 @@ class _AddNewDropScreenState extends State<AddNewDropScreen> {
             child: const Icon(Icons.check),
           ),
         );
-      },
-    );
   }
 
   void _onSubmit(BuildContext dropsContext) {

@@ -41,7 +41,8 @@ class AppThemes {
         overline: TextStyle(
           color: AppColors.darkGreenBlue,
           fontFamily: AppFontFamily.proximaNova,
-          fontSize: 18
+          fontSize: 18,
+          fontWeight: FontWeight.w700
         ),
         button: TextStyle(
           color: AppColors.greenBlue,
@@ -57,8 +58,12 @@ class AppThemes {
       indicatorColor: AppColors.greenBlue,
       floatingActionButtonTheme: const FloatingActionButtonThemeData(
         backgroundColor: AppColors.darkBlue,
+        foregroundColor: Colors.white
       ),
       highlightColor: AppColors.greenBlue,
+      colorScheme: const ColorScheme.light(
+        secondary: AppColors.darkBlue
+      )
     ),
     AppTheme.dark: ThemeData(
       backgroundColor: AppColors.skyBlue,
@@ -96,6 +101,7 @@ class AppThemes {
           color: AppColors.darkShadeBlueMagenta,
           fontFamily: AppFontFamily.proximaNova,
           fontSize: 18,
+          fontWeight: FontWeight.w700
         ),
         button: TextStyle(
           color: AppColors.darkBlue,
@@ -111,8 +117,12 @@ class AppThemes {
       indicatorColor: AppColors.darkBlue,
       floatingActionButtonTheme: const FloatingActionButtonThemeData(
         backgroundColor: AppColors.darkShadeBlueMagenta,
+        foregroundColor: Colors.white
       ),
       highlightColor: AppColors.skyViolet,
+      colorScheme: const ColorScheme.dark(
+        secondary: AppColors.darkShadeBlueMagenta
+      )
     )
   };
 }
