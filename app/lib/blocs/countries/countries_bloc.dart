@@ -4,7 +4,6 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:letsdrop/models/country.dart';
 import 'package:letsdrop/services/api_service.dart';
-import 'package:letsdrop/services/spotify_service.dart';
 
 part 'countries_event.dart';
 part 'countries_state.dart';
@@ -12,9 +11,8 @@ part 'countries_state.dart';
 class CountriesBloc extends Bloc<CountriesEvent, CountriesState> {
   
   final ApiService apiService;
-  final SpotifyService spotifyService;
   
-  CountriesBloc({ required this.apiService, required this.spotifyService }) : super(CountriesLoading()) {
+  CountriesBloc({ required this.apiService }) : super(CountriesLoading()) {
     on<LoadCountries>(_onLoadCountries);
   }
 
@@ -22,17 +20,7 @@ class CountriesBloc extends Bloc<CountriesEvent, CountriesState> {
 
     try {
 
-      final userLogged = await spotifyService.isLogged();
-
-
-      if(!userLogged) {
-        throw Exception("User Not Logged");
-      }
-
-      final token = await spotifyService.getToken();
-
-
-      final countries = await apiService.getCountries(token);
+      final countries = await apiService.getCountries();
 
       emit(
         CountriesLoaded(countries: countries)
