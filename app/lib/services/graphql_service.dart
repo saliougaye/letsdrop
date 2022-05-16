@@ -11,14 +11,12 @@ class GraphQlService {
     return GraphQlService._(url: url);
   }
 
-  //FIXME why double request (double request create two drops);
-
   Future<QueryResult> query(
       String query, String token, { Map<String, dynamic>? variables }) async {
     QueryOptions options = QueryOptions(
       document: gql(query), 
       variables: variables ?? {}, 
-      fetchPolicy: FetchPolicy.networkOnly);
+      fetchPolicy: FetchPolicy.noCache);
 
     final client = GraphQLClient(
       link: HttpLink(
@@ -53,9 +51,7 @@ class GraphQlService {
     );
 
 
-    final result = await client
-          .mutate(options)
-          .timeout(const Duration(seconds: 20));
+    final result = await client.mutate(options);
 
     return result;
   }

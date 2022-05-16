@@ -60,9 +60,13 @@ class DropsBloc extends Bloc<DropsEvent, DropsState> {
             artists: event.drop.artists,
             user: user.id);
 
-        final dropCreated = await apiService.createDrop(token, dropToInsert);
+        await apiService.createDrop(token, dropToInsert);
 
-        emit(DropsLoaded(drops: List.from(state.drops)..add(dropCreated)));
+        final drops = await apiService.getDrops(token, user.id);
+
+        emit(DropsLoaded(drops: drops));
+
+        
       } catch (e) {
         emit(DropsCreationFailed());
       }
