@@ -1,5 +1,6 @@
 interface IConfig {
     databaseUrl: string,
+    redis: string 
 }
 
 
