@@ -10,7 +10,7 @@ mongoose.connect(config.databaseUrl, {}).then(() => {
     instantiatePruneWorker();
     
 
-    app.listen(3000, '0.0.0.0', (err, address) => {
+    app.listen(process.env.PORT ?? 3000, '0.0.0.0', (err, address) => {
         if (err) {
             console.log(err);
             process.exit(1);

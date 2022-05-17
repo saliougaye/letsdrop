@@ -1,13 +1,7 @@
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_typeahead/flutter_typeahead.dart';
-import 'package:intl/intl.dart';
-import 'package:letsdrop/blocs/theme/theme_bloc.dart';
 import 'package:letsdrop/constants/assets.dart';
-import 'package:letsdrop/constants/token.dart';
 import 'package:letsdrop/models/spotify_artist.dart';
-import 'package:letsdrop/utils/addVerticalSpace.dart';
 import 'package:skeletons/skeletons.dart';
 
 class ArtistSelect extends StatelessWidget {
@@ -94,7 +88,7 @@ class ArtistSelect extends StatelessWidget {
             );
           }
 
-          return SizedBox(width: 45,);
+          return const SizedBox(width: 45,);
         }())
       ],
     );
@@ -105,39 +99,37 @@ class ArtistSelect extends StatelessWidget {
       return Container();
     }
 
-    return Container(
-      child: Row(
-        children: [
-          Expanded(
-            flex: 1,
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(8),
-              child: Image.network(
-                _getArtistImage(item),
-                fit: BoxFit.fitHeight,
-                scale: 0.8,
-                loadingBuilder: (context, child, loadingProgress) {
-                  if (loadingProgress == null) {
-                    return child;
-                  }
+    return Row(
+      children: [
+        Expanded(
+          flex: 1,
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(8),
+            child: Image.network(
+              _getArtistImage(item),
+              fit: BoxFit.fitHeight,
+              scale: 0.8,
+              loadingBuilder: (context, child, loadingProgress) {
+                if (loadingProgress == null) {
+                  return child;
+                }
 
-                  return const Skeleton(
-                      isLoading: true,
-                      skeleton: SkeletonAvatar(),
-                      child: SkeletonAvatar());
-                },
-              ),
+                return const Skeleton(
+                    isLoading: true,
+                    skeleton: SkeletonAvatar(),
+                    child: SkeletonAvatar());
+              },
             ),
           ),
-          SizedBox(width: 20,),
-          Expanded(
-            flex: 3,
-            child: Text(item.name,
-                overflow: TextOverflow.ellipsis,
-                style: Theme.of(context).textTheme.headline2),
-          )
-        ],
-      ),
+        ),
+        const SizedBox(width: 20,),
+        Expanded(
+          flex: 3,
+          child: Text(item.name,
+              overflow: TextOverflow.ellipsis,
+              style: Theme.of(context).textTheme.headline2),
+        )
+      ],
     );
   }
 

@@ -1,22 +1,26 @@
 import Queue from "bull";
 import dropsService from "../services/dropsService";
+import config from "../utils/config";
 
 const pruneQueueName = 'prune-drops-queue'
 
-const pruneQueue = new Queue<any>(pruneQueueName);
+const pruneQueue = new Queue<any>(pruneQueueName, config.redis);
 
 pruneQueue.process(async (_, done) => {
-    console.log('Deleting old drops');
 
     try {
         await dropsService.pruneDrops();
 
-        done();
+        console.log("👍 drops pruned successfully");
+
 
     } catch (error: any) {
-        done(error)
+        
+        console.log(`❌ drops pruned worker error: ${error}`)
     }
 
+    
+    done();
     
 });
 
@@ -26,7 +30,8 @@ const instantiatePruneWorker = () => {
 
     pruneQueue.add({}, {
         repeat: {
-            cron: '0 0 * * *'
+            cron: '0 0 * * *',
+
         }
     });
 
@@ -34,13 +39,6 @@ const instantiatePruneWorker = () => {
 
 }
 
-pruneQueue.on('completed', (job, result) => {
-    console.log("👍 drops pruned successfully");
-});
-
-pruneQueue.on('failed', (job, error) => {
-    console.log(`❌ drops pruned worker error: ${error}`);
-});
 
 
 
