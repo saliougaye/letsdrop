@@ -1,6 +1,4 @@
 To Do:
-- Backend
-    - Deploy
 - App:
     - UI
         - Home Page  

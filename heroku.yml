@@ -1,0 +1,9 @@
+build:
+  docker:
+    web: backend/Dockerfile
+  config:
+    DATABASE_URL: $DATABASE_URL
+    REDIS_URL: $REDIS_URL
+
+run:
+  web: npm start

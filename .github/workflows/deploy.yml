@@ -1,0 +1,47 @@
+name: deploy-be
+on:
+  push:
+    branches:
+      - 'main'
+
+jobs:
+  deploy-be:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Heroku login credentials
+        run: |
+          chmod +x ./scripts/heroku-login.sh
+          sh ./scripts/heroku-login.sh
+        env:
+          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+          HEROKU_EMAIL: ${{ secrets.HEROKU_EMAIL }}
+      - name: Set DATABASE_URL and REDIS_URL config var on heroku 
+        run: |
+          heroku config:set DATABASE_URL=$MONGO_DB -a $HEROKU_APP_NAME
+          heroku config:set REDIS_URL=$REDIS -a $HEROKU_APP_NAME
+        env:
+          HEROKU_APP_NAME: ${{ secrets.HEROKU_APP_NAME_BE }}
+          MONGO_DB: ${{ secrets.DATABASE }}
+          REDIS: ${{ secrets.REDIS }}
+      - name: Add heroku.yml to root
+        run: cp ./heroku/heroku-be.yml ./heroku.yml
+      - name: Git Phase
+        run: |
+          git config --global user.name 'Github Action'
+          git config --global user.email 'https://github.com/saliougaye/letsdrop'
+          git add heroku.yml
+          git commit -m "add heroku.yml"
+          git status
+      - name: Add Heroku remote
+        run: heroku git:remote --app $HEROKU_APP_NAME
+        env:
+          HEROKU_APP_NAME: ${{ secrets.HEROKU_APP_NAME_BE }}
+      - name: Set Heroku Stack
+        run: heroku stack:set container
+      - name: Push to heroku
+        run: git push -f heroku main:main
+      
