@@ -4,8 +4,8 @@ import { FastifyReply, FastifyRequest, HookHandlerDoneFunction } from "fastify";
 const preHandler = async (req: FastifyRequest, reply: FastifyReply) => {
 
     if(req.headers.authorization == null) {
-        reply.code(401)
-        return reply;
+        reply.code(401).send();
+        return;
     }
 
 
@@ -17,13 +17,13 @@ const preHandler = async (req: FastifyRequest, reply: FastifyReply) => {
         });    
 
         if(res.status == 401) {
-            reply.code(401);
-            return reply;
+            reply.code(401).send();
+            return;
         }
 
     } catch (error) {
-        reply.code(500);
-        return reply;
+        reply.code(500).send();
+        return;
     }
     
 }

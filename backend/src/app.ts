@@ -10,7 +10,7 @@ import { schema, resolvers } from './graphql/index';
 dotenv.config();
 
 const app : FastifyInstance<Server, IncomingMessage, ServerResponse> = fastify({
-    logger: false
+    logger: true
 });
 
 app.addHook('preHandler', preHandler);

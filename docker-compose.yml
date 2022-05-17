@@ -13,3 +13,15 @@ services:
     command: redis-server
     ports:
       - 6379:6379
+  be:
+    build: 
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - 3000:3000
+    environment:
+      - DATABASE_URL=mongodb://root:example@mongo:27017/letsdrop?authSource=admin
+      - REDIS_URL=redis://redis:6379
+    depends_on:
+      - mongo
+      - redis
