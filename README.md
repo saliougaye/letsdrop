@@ -19,8 +19,6 @@ Save your artists incoming allbum
 ```
 
 ## ✅ TO-DO
-- Backend
-    - [ ] Deploy 
 
 
 
