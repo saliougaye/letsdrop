@@ -22,9 +22,7 @@ class DropDateDivider extends StatelessWidget {
                 Column(
                   children: [
                     Text(
-                      isToday(date)
-                          ? "Today"
-                          : "${dayDifference(date, DateTime.now())} days left",
+                      _getTitle(),
                       style: Theme.of(context).textTheme.headline2,
                     )
                   ],
@@ -47,5 +45,20 @@ class DropDateDivider extends StatelessWidget {
         );
       },
     );
+  }
+
+
+  String _getTitle () {
+    if(isToday(date)) {
+      return "Today";
+    }
+
+    final daysDifference = dayDifference(date, DateTime.now());
+
+    if(daysDifference < 0) {
+      return "Yet Dropped";
+    }
+
+    return "$daysDifference days left";
   }
 }
