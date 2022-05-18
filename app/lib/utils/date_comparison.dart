@@ -11,5 +11,5 @@ DateTime onlyDate(DateTime dateTime) {
 }
 
 int dayDifference(DateTime first, DateTime second) {
-  return onlyDate(first).difference(onlyDate(second)).inDays.abs();
+  return onlyDate(first).difference(onlyDate(second)).inDays;
 }
