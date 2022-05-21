@@ -4,6 +4,7 @@ build:
   config:
     DATABASE_URL: $DATABASE_URL
     REDIS_URL: $REDIS_URL
+    NODE_ENV: $NODE_ENV
 
 run:
   web: npm start

@@ -21,14 +21,16 @@ jobs:
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
           HEROKU_EMAIL: ${{ secrets.HEROKU_EMAIL }}
-      - name: Set DATABASE_URL and REDIS_URL config var on heroku 
+      - name: Set configurations variables on heroku 
         run: |
           heroku config:set DATABASE_URL=$MONGO_DB -a $HEROKU_APP_NAME
           heroku config:set REDIS_URL=$REDIS -a $HEROKU_APP_NAME
+          heroku config:set NODE_ENV=$NODE_ENV -a $HEROKU_APP_NAME
         env:
           HEROKU_APP_NAME: ${{ secrets.HEROKU_APP_NAME }}
           MONGO_DB: ${{ secrets.DATABASE }}
           REDIS: ${{ secrets.REDIS }}
+          NODE_ENV: ${{ secrets.NODE_ENV }}
       - name: Add heroku.yml to root
         run: cp ./heroku/heroku-be.yml ./heroku.yml
       - name: Git Phase

@@ -18,7 +18,7 @@ app.addHook('preHandler', preHandler);
 app.register(mercurius, {
     schema: schema,
     resolvers: resolvers,
-    graphiql: 'graphiql',
+    graphiql: process.env.NODE_ENV === 'DEBUG' ? 'graphiql' : undefined,
 });
 
 
