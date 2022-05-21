@@ -47,6 +47,8 @@ class DropList extends StatelessWidget {
             widget2See = const Loading();
           }
 
+          return widget2See;
+          
           return RefreshIndicator(
               child: widget2See,
               onRefresh: () {
@@ -110,7 +112,6 @@ class DropList extends StatelessWidget {
       floatingHeader: false,
       order: GroupedListOrder.ASC,
       shrinkWrap: true,
-      physics: const AlwaysScrollableScrollPhysics(),
     );
   }
 }
