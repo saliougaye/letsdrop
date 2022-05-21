@@ -144,7 +144,8 @@ class DropItem extends StatelessWidget {
   Future<void> _onArtistTap(BuildContext context, String link) async {
     if (await canLaunchUrlString(link)) {
       await launchUrlString(
-        link
+        link,
+        mode: LaunchMode.externalApplication,
       );
     } else {
       const snackBar = SnackBar(content: Text("Can't Launch Url"));
