@@ -6,6 +6,7 @@ import 'package:letsdrop/constants/assets.dart';
 
 import 'package:letsdrop/models/drop.dart';
 import 'package:letsdrop/models/spotify_artist.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import 'package:skeletons/skeletons.dart';
 
@@ -142,7 +143,10 @@ class DropItem extends StatelessWidget {
 
   Future<void> _onArtistTap(BuildContext context, String link) async {
     if (await canLaunchUrlString(link)) {
-      await launchUrlString(link);
+      await launchUrlString(
+        link,
+        mode: LaunchMode.externalApplication,
+      );
     } else {
       const snackBar = SnackBar(content: Text("Can't Launch Url"));
 

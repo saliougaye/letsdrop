@@ -1,12 +1,12 @@
 # LetsDrop
 [![Author](https://img.shields.io/badge/Author-Saliou%20Gaye-blue)](https://github.com/saliougaye)
-[![License](https://img.shields.io/badge/license-MIT-green)](https://github.com/saliougaye/PortfolioTemplate/blob/master/LICENSE.md)
+[![License](https://img.shields.io/badge/license-MIT-green)](https://github.com/saliougaye/letsdrop/blob/main/LICENSE.md)
 ![](https://badgen.net/badge/Open%20Source%20%3F/Yes/blue?icon=github)  
 
 
 
 ## 📖 Description
-Save your artists incoming allbum
+Save your artists incoming album and get notified when they drop 
 
 
 <br/>
@@ -16,12 +16,8 @@ Save your artists incoming allbum
 - Backend: Typescript + Fastify + Mercurius + Bull Js
 - Databases: MongoDB + Redis
 - App: Flutter
+- Authentication: Spotify Oauth2.0
 ```
-
-## ✅ TO-DO
-- Backend
-    - [ ] Deploy 
-
 
 
 <br/>
