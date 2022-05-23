@@ -1,14 +1,10 @@
 import mongoose from 'mongoose';
 import app from './app';
 import config from './utils/config';
-import instantiatePruneWorker from './workers/pruneWorker';
 
 
 mongoose.connect(config.databaseUrl, {}).then(() => {
     console.log("💚 Connected to MongoDB");
-
-    instantiatePruneWorker();
-    
 
     app.listen(process.env.PORT ?? 3000, '0.0.0.0', (err, address) => {
         if (err) {
