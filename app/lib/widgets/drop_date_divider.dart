@@ -56,7 +56,7 @@ class DropDateDivider extends StatelessWidget {
     final daysDifference = dayDifference(date, DateTime.now());
 
     if(daysDifference < 0) {
-      return "Yet Dropped";
+      return "Just Dropped";
     }
 
     return "$daysDifference days left";
