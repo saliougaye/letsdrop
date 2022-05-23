@@ -1,10 +1,18 @@
 import { instantiatePruneDropsWorker } from './workers/index';
+import throng from 'throng'
 
-(async () => {
+const workers = process.env.WEB_CONCURRENCY || 1;
 
-    console.log('Worker Started');
+const start = async () => {
+
+    console.log('🚀 Worker Started');
     
     await instantiatePruneDropsWorker();
+}
 
 
-})()
+throng({
+    workers: workers,
+    worker: start,
+    lifetime: Infinity
+})

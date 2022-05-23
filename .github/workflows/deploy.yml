@@ -5,6 +5,7 @@ on:
       - 'main'
     paths:
       - backend/**
+      - worker/**
 
 jobs:
   deploy-be:

@@ -12,20 +12,6 @@ const instantiatePruneDropsWorker = async () => {
 
     const logger = Logger(PRUNE_WORKER_NAME);
 
-    const pruneDropsQueueScheduler = new QueueScheduler(PRUNE_QUEUE_NAME, {
-        connection: {
-            host: config.redisHost,
-            port: config.redisPort
-        }
-    });
-
-    const pruneDropsQueue = new Queue(PRUNE_QUEUE_NAME, {
-        connection: {
-            host: config.redisHost,
-            port: config.redisPort
-        }
-    });
-
     const workerFunction = async (job: Job<any, any, string>) : Promise<any> => {
 
         const deletedCount = await DropService.pruneDrops();
@@ -47,11 +33,16 @@ const instantiatePruneDropsWorker = async () => {
         
     }
 
+    const pruneDropsQueueScheduler = new QueueScheduler(PRUNE_QUEUE_NAME, {
+        connection: config.redisUrl
+    });
+
+    const pruneDropsQueue = new Queue(PRUNE_QUEUE_NAME, {
+        connection: config.redisUrl
+    });
+
     const pruneDropsWorker = new Worker(PRUNE_QUEUE_NAME, workerFunction, {
-        connection: {
-            host: config.redisHost,
-            port: config.redisPort
-        }
+        connection: config.redisUrl
     });
 
     pruneDropsWorker.on('completed', workerOnCompleted);

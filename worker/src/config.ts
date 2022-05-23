@@ -5,15 +5,13 @@ dotenv.config();
 type Environment = 'DEV' | 'PROD';
 
 interface Config {
-    redisHost: string,
-    redisPort: number,
+    redisUrl: string
     databaseUrl: string,
     environment: Environment
 }
 
 const keyRequired : string[] = [
-    "REDIS_HOST",
-    "REDIS_PORT",
+    "REDIS_URL",
     "DATABASE_URL"
 ]
 
@@ -26,8 +24,7 @@ keyRequired.forEach(el => {
 
 
 const config : Config = {
-    redisHost: process.env.REDIS_HOST!,
-    redisPort: parseInt(process.env.REDIS_PORT!),
+    redisUrl: process.env.REDIS_URL!,
     databaseUrl: process.env.DATABASE_URL!,
     environment: process.env.NODE_ENV !== undefined && process.env.NODE_ENV === 'PROD' ? 'PROD' : 'DEV'
 };
