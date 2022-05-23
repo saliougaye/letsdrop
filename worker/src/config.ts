@@ -2,10 +2,13 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
+type Environment = 'DEV' | 'PROD';
+
 interface Config {
     redisHost: string,
     redisPort: number,
-    databaseUrl: string
+    databaseUrl: string,
+    environment: Environment
 }
 
 const keyRequired : string[] = [
@@ -26,6 +29,7 @@ const config : Config = {
     redisHost: process.env.REDIS_HOST!,
     redisPort: parseInt(process.env.REDIS_PORT!),
     databaseUrl: process.env.DATABASE_URL!,
+    environment: process.env.NODE_ENV !== undefined && process.env.NODE_ENV === 'PROD' ? 'PROD' : 'DEV'
 };
 
 export default config;
