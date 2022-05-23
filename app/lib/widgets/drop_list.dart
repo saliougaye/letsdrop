@@ -49,13 +49,6 @@ class DropList extends StatelessWidget {
 
           return widget2See;
           
-          return RefreshIndicator(
-              child: widget2See,
-              onRefresh: () {
-                context.read<DropsBloc>().add(LoadDrops());
-
-                return Future.delayed(const Duration(seconds: 1));
-              });
         },
       ),
     );
@@ -96,8 +89,14 @@ class DropList extends StatelessWidget {
       );
     }
 
+    List<Drop> justDropped = drops.where((el) => el.dropDate.isBefore(DateTime.now())).toList();
+    for (var element in justDropped) {
+      element.dropDate = DateTime(DateTime.now().year,DateTime.now().month, DateTime.now().day-3);
+    }
+    List<Drop> futureDrops = drops.where((el) => el.dropDate.isAfter(DateTime.now())).toList();
+
     return GroupedListView<Drop, DateTime>(
-      elements: drops,
+      elements: List.from(justDropped)..addAll(futureDrops),
       groupBy: (element) => element.dropDate, 
       itemBuilder: (context, element) => DropItem(
         drop: element,
