@@ -51,6 +51,6 @@ docs/
 
 *.env
 
-backend/node_modules
+node_modules
 accesstoken/
 app/lib/constants/token.dart
