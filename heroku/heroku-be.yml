@@ -1,6 +1,7 @@
 build:
   docker:
     web: backend/Dockerfile
+    worker: worker/Dockerfile
   config:
     DATABASE_URL: $DATABASE_URL
     REDIS_URL: $REDIS_URL
@@ -8,3 +9,4 @@ build:
 
 run:
   web: npm start
+  worker: npm start
