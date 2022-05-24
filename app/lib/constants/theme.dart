@@ -7,121 +7,121 @@ class AppThemes {
 
   static final appThemeData = {
     AppTheme.light: ThemeData(
-      backgroundColor: AppColors.lightSeaGreen,
+      backgroundColor: AppColors.lightFourthColor,
       textTheme: TextTheme(
         headline1: TextStyle(
-          color: AppColors.darkBlue,
+          color: AppColors.lightSecondaryColor,
           fontFamily: AppFontFamily.montserrat,
           fontSize: 24,
           fontWeight: FontWeight.normal
         ),
         headline2: TextStyle(
-          color: AppColors.darkGreenBlue,
+          color: AppColors.lightPrimaryColor,
           fontFamily: AppFontFamily.proximaNova,
           fontSize: 22,
           fontWeight: FontWeight.w500
         ),
         headline3: TextStyle(
-          color: AppColors.skyGrey,
+          color: AppColors.lightFifthColor,
           fontSize: 16,
           fontFamily: AppFontFamily.proximaNova
         ),
         subtitle1: TextStyle(
-          color: AppColors.lightSeaGreen,
+          color: AppColors.lightFourthColor,
           fontSize: 16,
           fontFamily: AppFontFamily.proximaNova,
           decoration: TextDecoration.underline
         ),
         subtitle2: TextStyle(
-          color: AppColors.darkGreenBlue,
+          color: AppColors.lightPrimaryColor,
           fontFamily: AppFontFamily.proximaNova,
           fontSize: 18,
           fontWeight: FontWeight.w400
         ),
         overline: TextStyle(
-          color: AppColors.darkGreenBlue,
+          color: AppColors.lightPrimaryColor,
           fontFamily: AppFontFamily.proximaNova,
           fontSize: 18,
           fontWeight: FontWeight.w700
         ),
         button: TextStyle(
-          color: AppColors.greenBlue,
+          color: AppColors.lightSecondaryColor,
           fontFamily: AppFontFamily.proximaNova,
           fontSize: 18,
           wordSpacing: 2,
           letterSpacing: 1
         ),
       ),
-      cardColor: AppColors.darkGreenBlue.withOpacity(0.5),
-      dividerColor: AppColors.darkGreenBlue,
-      splashColor: AppColors.darkGreenBlue,
-      indicatorColor: AppColors.greenBlue,
-      floatingActionButtonTheme: const FloatingActionButtonThemeData(
-        backgroundColor: AppColors.darkBlue,
+      cardColor: AppColors.lightPrimaryColor.withOpacity(0.5),
+      dividerColor: AppColors.lightPrimaryColor,
+      splashColor: AppColors.lightPrimaryColor,
+      indicatorColor: AppColors.lightSecondaryColor,
+      floatingActionButtonTheme: FloatingActionButtonThemeData(
+        backgroundColor: AppColors.lightSecondaryColor,
         foregroundColor: Colors.white
       ),
-      highlightColor: AppColors.greenBlue,
-      colorScheme: const ColorScheme.light(
-        secondary: AppColors.darkBlue
+      highlightColor: AppColors.lightSecondaryColor,
+      colorScheme: ColorScheme.light(
+        secondary: AppColors.lightSecondaryColor
       )
     ),
     AppTheme.dark: ThemeData(
-      backgroundColor: AppColors.skyBlue,
+      backgroundColor: AppColors.darkThirdiaryColor,
       textTheme: TextTheme(
         headline1: TextStyle(
-          color: AppColors.darkShadeBlueMagenta,
+          color: AppColors.darkPrimaryColor,
           fontFamily: AppFontFamily.montserrat,
           fontSize: 24,
           fontWeight: FontWeight.normal
         ),
         headline2: TextStyle(
-          color: AppColors.darkShadeBlueMagenta,
+          color: AppColors.darkPrimaryColor,
           fontFamily: AppFontFamily.proximaNova,
           fontSize: 22,
           fontWeight: FontWeight.w500
         ),
         headline3: TextStyle(
-          color: AppColors.skyViolet,
+          color: AppColors.darkFourthColor,
           fontSize: 16,
           fontFamily: AppFontFamily.proximaNova
         ),
         subtitle1: TextStyle(
-          color: AppColors.skyBlue,
+          color: AppColors.darkThirdiaryColor,
           fontSize: 16,
           fontFamily: AppFontFamily.proximaNova,
           decoration: TextDecoration.underline
         ),
         subtitle2: TextStyle(
-          color: AppColors.darkShadeBlueMagenta,
+          color: AppColors.darkPrimaryColor,
           fontFamily: AppFontFamily.proximaNova,
           fontSize: 18,
           fontWeight: FontWeight.w400
         ),
         overline: TextStyle(
-          color: AppColors.darkShadeBlueMagenta,
+          color: AppColors.darkPrimaryColor,
           fontFamily: AppFontFamily.proximaNova,
           fontSize: 18,
           fontWeight: FontWeight.w700
         ),
         button: TextStyle(
-          color: AppColors.darkBlue,
+          color: AppColors.darkSecondaryColor,
           fontFamily: AppFontFamily.proximaNova,
           fontSize: 18,
           wordSpacing: 2,
           letterSpacing: 1
         ),
       ),
-      cardColor: AppColors.darkShadeBlueMagenta.withOpacity(0.5),
-      dividerColor: AppColors.darkShadeBlueMagenta,
-      splashColor: AppColors.darkShadeBlueMagenta,
-      indicatorColor: AppColors.darkBlue,
-      floatingActionButtonTheme: const FloatingActionButtonThemeData(
-        backgroundColor: AppColors.darkShadeBlueMagenta,
+      cardColor: AppColors.darkPrimaryColor.withOpacity(0.5),
+      dividerColor: AppColors.darkPrimaryColor,
+      splashColor: AppColors.darkPrimaryColor,
+      indicatorColor: AppColors.darkSecondaryColor,
+      floatingActionButtonTheme: FloatingActionButtonThemeData(
+        backgroundColor: AppColors.darkPrimaryColor,
         foregroundColor: Colors.white
       ),
-      highlightColor: AppColors.skyViolet,
-      colorScheme: const ColorScheme.dark(
-        secondary: AppColors.darkShadeBlueMagenta
+      highlightColor: AppColors.darkFifthColor,
+      colorScheme: ColorScheme.dark(
+        secondary: AppColors.darkPrimaryColor
       )
     )
   };
