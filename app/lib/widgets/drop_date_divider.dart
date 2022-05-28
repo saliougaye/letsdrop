@@ -30,7 +30,7 @@ class DropDateDivider extends StatelessWidget {
                 Column(
                   children: [
                     Text(
-                      DateFormat(DateFormat.MONTH_WEEKDAY_DAY).format(date),
+                      _getFullDate(),
                       style: Theme.of(context).textTheme.subtitle2,
                     )
                   ],
@@ -60,5 +60,16 @@ class DropDateDivider extends StatelessWidget {
     }
 
     return "$daysDifference days left";
+  }
+
+  String _getFullDate () {
+    final daysDifference = dayDifference(date, DateTime.now());
+
+    if(daysDifference < 0) {
+      return "";
+    }
+
+    return DateFormat(DateFormat.MONTH_WEEKDAY_DAY).format(date);
+
   }
 }
