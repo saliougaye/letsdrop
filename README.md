@@ -19,6 +19,9 @@ Save your artists incoming album and get notified when they drop
 - Authentication: Spotify Oauth2.0
 ```
 
+<br/>
+
+**N.B**: The backend is deployed on heroku and uses [Kaffeine](https://github.com/RomainButteaud/Kaffeine) to prevent the heroky app go in sleeping mode
 
 <br/>
 
